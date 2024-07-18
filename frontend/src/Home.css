@@ -1,0 +1,86 @@
+/* Container styles */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: black;
+}
+
+/* Add button styles */
+.add-button {
+  background-color: #763fc3;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+/* Expenses list styles */
+.expenses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Expense item styles */
+.expense-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Edit form styles */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Input styles */
+.input-text,
+.input-number {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Expense text styles */
+.expense-text {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Buttons container styles */
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Individual button styles */
+.delete-button,
+.edit-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.delete-button {
+  background-color: #c92f47;
+}
+
+.edit-button {
+  background-color: #3f5cc3;
+}
