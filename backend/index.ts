@@ -1,9 +1,10 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-import { router } from "./routes/expenseRoutes";
+import { ExpenseRouter } from "./routes/expenseRoutes";
 import connectDB from "./config/db";
 import { errorHandler } from "./middleware/errorMiddleware";
 import "dotenv/config";
+import { UserRouter } from "./routes/userRoutes";
 
 const app = express();
 
@@ -15,7 +16,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/expenses", router);
+app.use("/api/expenses", ExpenseRouter);
+app.use("/api/users", UserRouter);
 
 app.use(errorHandler);
 

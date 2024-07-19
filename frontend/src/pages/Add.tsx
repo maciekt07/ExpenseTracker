@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Add = () => {
+const Add = () => {
   const n = useNavigate();
   const [text, setText] = useState("");
   const [amount, setAmount] = useState(0);
@@ -47,8 +47,10 @@ export const Add = () => {
         value={amount}
         onChange={(e) => setAmount(Number(e.target.value))}
         placeholder="Enter amount"
+        defaultValue={0}
       />
       <button onClick={handleAdd}>Add</button>
     </div>
   );
 };
+export default Add;

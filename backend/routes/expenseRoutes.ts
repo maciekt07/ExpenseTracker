@@ -5,16 +5,15 @@ import {
   getAllExpenses,
   updateExpense,
 } from "../controllers/expenseController";
+import protect from "../middleware/authMiddleware";
 const router = Router();
 
-// https://youtu.be/-0exw-9YJBo?si=rwElgTQpNo7NROB8&t=1566
+router.post("/", protect, createExpense);
 
-router.get("/", getAllExpenses);
+router.get("/", protect, getAllExpenses);
 
-router.post("/", createExpense);
+router.put("/:id", protect, updateExpense);
 
-router.put("/:id", updateExpense);
+router.delete("/:id", protect, deleteExpense);
 
-router.delete("/:id", deleteExpense);
-
-export { router };
+export { router as ExpenseRouter };

@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Home.css";
+import { Expense } from "../types/expense";
 
-type Expense = {
-  _id: string;
-  text: string;
-  amount: number;
-};
-
-export const Home = () => {
+const Home = () => {
   const n = useNavigate();
   const [data, setData] = useState<Expense[]>([]);
   const [isEditing, setIsEditing] = useState<string | null>(null);
@@ -121,3 +116,4 @@ export const Home = () => {
     </div>
   );
 };
+export default Home;
