@@ -1,28 +1,25 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
-import Add from "./pages/Add";
 import NotFound from "./pages/404";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { AuthProvider } from "./contexts/AuthContext";
+import MainLayout from "./layouts/MainLayout";
+import { Provider } from "react-redux";
+import { store } from "./app/strore";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/add" element={<Add />} />
-      <Route path="/login" element={<Login />} />
-      <Route
-        path="/register"
-        element={
-          <AuthProvider>
-            <Register />
-          </AuthProvider>
-        }
-      />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <Provider store={store}>
+      <MainLayout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </MainLayout>
+    </Provider>
   );
 }
 

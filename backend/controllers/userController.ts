@@ -14,9 +14,9 @@ const generateToken = (id: Types.ObjectId) => {
 
 export const registerUser = asyncHandler(
   async (req: Request, res: Response) => {
-    const { username, email, password } = req.body;
+    const { name, email, password } = req.body;
 
-    if (!username || !email || !password) {
+    if (!name || !email || !password) {
       res.status(400);
       throw new Error("Missing required fields");
     }
@@ -34,7 +34,7 @@ export const registerUser = asyncHandler(
 
     // Create user
     const user = await User.create({
-      username,
+      name,
       email,
       password: hashedPassword,
     });
@@ -42,7 +42,7 @@ export const registerUser = asyncHandler(
     if (user) {
       res.status(201).json({
         _id: user._id,
-        username: user.username,
+        name: user.name,
         email: user.email,
         token: generateToken(user._id),
       });
@@ -61,7 +61,7 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
   if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
       _id: user._id,
-      username: user.username,
+      name: user.name,
       email: user.email,
       token: generateToken(user._id),
     });
@@ -85,10 +85,10 @@ export const getUserData = asyncHandler(async (req: Request, res: Response) => {
     throw new Error("User not found");
   }
 
-  const { _id, username, email } = user;
+  const { _id, name, email } = user;
   res.status(200).json({
     id: _id,
-    username,
+    name,
     email,
   });
 });
