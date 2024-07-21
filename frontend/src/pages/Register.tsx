@@ -14,7 +14,7 @@ function Register() {
 
   const { name, email, password, password2 } = formData;
 
-  const navigate = useNavigate();
+  const n = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
   const { user, isLoading, isError, isSuccess, message } = useSelector(
@@ -27,11 +27,11 @@ function Register() {
     }
 
     if (isSuccess || user) {
-      navigate("/");
+      n("/");
     }
 
     dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch]);
+  }, [user, isError, isSuccess, message, n, dispatch]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({

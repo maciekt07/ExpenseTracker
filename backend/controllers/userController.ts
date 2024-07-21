@@ -74,21 +74,22 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
 export const getUserData = asyncHandler(async (req: Request, res: Response) => {
   const customReq = req as CustomRequest;
 
-  if (!customReq.user) {
-    res.status(401);
-    throw new Error("Not authorized");
-  }
+  // if (!customReq.user) {
+  //   res.status(401);
+  //   throw new Error("Not authorized");
+  // }
 
-  const user = await User.findById(customReq.user.id);
-  if (!user) {
-    res.status(404);
-    throw new Error("User not found");
-  }
+  // const user = await User.findById(customReq.user.id);
+  // if (!user) {
+  //   res.status(404);
+  //   throw new Error("User not found");
+  // }
 
-  const { _id, name, email } = user;
-  res.status(200).json({
-    id: _id,
-    name,
-    email,
-  });
+  // const { _id, name, email } = user;
+  // res.status(200).json({
+  //   id: _id,
+  //   name,
+  //   email,
+  // });
+  res.status(200).json(customReq.user);
 });

@@ -40,6 +40,42 @@ export const register: AsyncThunk<any, any, AsyncThunkConfig> =
     }
   );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const logout = createAsyncThunk<any, void, AsyncThunkConfig>(
+  "auth/logout",
+  async (_, thunkAPI) => {
+    try {
+      authService.logout();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error("Error logging out:", error);
+      return thunkAPI.rejectWithValue(error.message || error.toString());
+    }
+  }
+);
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const login: AsyncThunk<any, any, AsyncThunkConfig> = createAsyncThunk(
+  "auth/login",
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async (user: any, thunkAPI: any) => {
+    try {
+      console.log("Dispatching login action with user:", user);
+      return await authService.login(user);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error("Error in login thunk:", error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -52,7 +88,7 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
+    builder // Register
       .addCase(register.pending, (state) => {
         state.isLoading = true;
       })
@@ -69,6 +105,27 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload as string;
+        state.user = null;
+      }) // Login
+      .addCase(login.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(login.rejected, (state, action) => {
+        console.log(action.payload);
+        console.log(state);
+        console.log(action);
+
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload as string;
+        state.user = null;
+      })
+      .addCase(logout.fulfilled, (state) => {
         state.user = null;
       });
   },

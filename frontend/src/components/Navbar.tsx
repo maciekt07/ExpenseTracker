@@ -1,6 +1,21 @@
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, reset } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import { AppDispatch, RootState } from "../app/strore";
 
 function Navbar() {
+  const n = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    n("/");
+  };
+
   return (
     <div
       style={{
@@ -17,8 +32,14 @@ function Navbar() {
       }}
     >
       <Link to="/">Home</Link>
-      <Link to="/login">Login</Link>
-      <Link to="/register">Register</Link>
+      {user ? (
+        <button onClick={handleLogout}>Logout</button>
+      ) : (
+        <>
+          <Link to="/login">Login</Link>
+          <Link to="/register">Register</Link>
+        </>
+      )}
     </div>
   );
 }

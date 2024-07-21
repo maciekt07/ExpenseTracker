@@ -25,7 +25,30 @@ const register = async (userData: User) => {
   }
 };
 
+const login = async (userData: User) => {
+  try {
+    console.log("Making request to login user:", userData);
+    const response = await axios.post(API_URL + "login", userData);
+    console.log("Received response:", response);
+
+    if (response.data) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error("Error logging in user:", error);
+    throw error;
+  }
+};
+
+const logout = () => {
+  localStorage.removeItem("user");
+};
+
 const authService = {
   register,
+  logout,
+  login,
 };
 export default authService;
