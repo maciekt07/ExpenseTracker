@@ -29,7 +29,7 @@ const protect = asyncHandler(
           token,
           process.env.JWT_SECRET as string
         ) as DecodedToken;
-        //get user from token
+        // get user from token
         req.user = await User.findById(decoded.id).select("-password");
         next();
       } catch (error) {

@@ -21,7 +21,7 @@ app.use("/api/users", UserRouter);
 
 app.use(errorHandler);
 
-app.get("/", (req: Request, res: Response) => {
+app.get("/", (req, res) => {
   res.send("hello world");
 });
 

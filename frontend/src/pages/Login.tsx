@@ -26,7 +26,7 @@ function Login() {
 
   useEffect(() => {
     if (isError) {
-      console.log(message);
+      alert(message);
     }
 
     if (isSuccess || user) {
@@ -45,6 +45,7 @@ function Login() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const userData = {
       email,
       password,

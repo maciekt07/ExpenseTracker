@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import asyncHandler from "express-async-handler";
 import User from "../models/user";
 import { Types } from "mongoose";
-import { CustomRequest } from "../types/types";
+import { AuthenticatedRequest } from "../types/types";
 
 const generateToken = (id: Types.ObjectId) => {
   return jwt.sign({ id }, process.env.JWT_SECRET as string, {
@@ -71,25 +71,23 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
+//https://www.youtube.com/watch?v=UXjMo25Nnvc&list=PLillGF-RfqbbQeVSccR9PGKHzPJSWqcsm&index=4&ab_channel=TraversyMedia
 export const getUserData = asyncHandler(async (req: Request, res: Response) => {
-  const customReq = req as CustomRequest;
+  if (!(req as AuthenticatedRequest).user) {
+    res.status(401);
+    throw new Error("Not authorized");
+  }
 
-  // if (!customReq.user) {
-  //   res.status(401);
-  //   throw new Error("Not authorized");
-  // }
+  const user = await User.findById((req as AuthenticatedRequest).user.id);
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
 
-  // const user = await User.findById(customReq.user.id);
-  // if (!user) {
-  //   res.status(404);
-  //   throw new Error("User not found");
-  // }
-
-  // const { _id, name, email } = user;
-  // res.status(200).json({
-  //   id: _id,
-  //   name,
-  //   email,
-  // });
-  res.status(200).json(customReq.user);
+  const { _id, name, email } = user;
+  res.status(200).json({
+    id: _id,
+    name,
+    email,
+  });
 });

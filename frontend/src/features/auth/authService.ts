@@ -1,14 +1,9 @@
 import axios from "axios";
+import { UserData } from "../../types/types";
 
-interface User {
-  name: string;
-  email: string;
-  password: string;
-}
+const API_URL = "api/users/";
 
-const API_URL = "http://localhost:8000/api/users/";
-
-const register = async (userData: User) => {
+const register = async (userData: UserData) => {
   try {
     console.log("Making request to register user:", userData);
     const response = await axios.post(API_URL, userData);
@@ -25,7 +20,7 @@ const register = async (userData: User) => {
   }
 };
 
-const login = async (userData: User) => {
+const login = async (userData: UserData) => {
   try {
     console.log("Making request to login user:", userData);
     const response = await axios.post(API_URL + "login", userData);

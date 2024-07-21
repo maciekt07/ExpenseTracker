@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import MainLayout from "./layouts/MainLayout";
 import { Provider } from "react-redux";
 import { store } from "./app/strore";
+import Add from "./pages/Add";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/add" element={<Add />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </MainLayout>

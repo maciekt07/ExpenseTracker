@@ -10,3 +10,9 @@ export interface AuthResponse {
   email: string;
   token: string;
 }
+
+// export type Expense = {
+//   _id: string;
+//   text: string;
+//   amount: number;
+// };

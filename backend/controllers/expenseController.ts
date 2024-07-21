@@ -1,20 +1,20 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import Expense from "../models/expense";
-import { CustomRequest } from "../types/types";
 import User from "../models/user";
+import { AuthenticatedRequest } from "../types/types";
 
 export const getAllExpenses = asyncHandler(
   async (req: Request, res: Response) => {
-    const customReq = req as CustomRequest;
-    const expenses = await Expense.find({ user: customReq.user.id });
+    const expenses = await Expense.find({
+      user: (req as AuthenticatedRequest).user.id,
+    });
     res.status(200).json(expenses);
   }
 );
 
 export const createExpense = asyncHandler(
   async (req: Request, res: Response) => {
-    const customReq = req as CustomRequest; // FIXME: TypeScript complains about req.user
     if (!req.body.text) {
       res.status(400);
       throw new Error("Missing text");
@@ -32,7 +32,7 @@ export const createExpense = asyncHandler(
     const expense = Expense.create({
       text: req.body.text,
       amount: req.body.amount,
-      user: customReq.user.id,
+      user: (req as AuthenticatedRequest).user.id,
     });
 
     res.status(200).json(expense);
@@ -41,7 +41,6 @@ export const createExpense = asyncHandler(
 
 export const updateExpense = asyncHandler(
   async (req: Request, res: Response) => {
-    const customReq = req as CustomRequest;
     const expense = await Expense.findById(req.params.id);
     if (!expense) {
       res.status(400);
@@ -52,7 +51,7 @@ export const updateExpense = asyncHandler(
       throw new Error("Amount cannot be negative");
     }
 
-    const user = await User.findById(customReq.user.id);
+    const user = await User.findById((req as AuthenticatedRequest).user.id);
     if (!user) {
       res.status(401);
       throw new Error("User not found");
@@ -74,13 +73,12 @@ export const updateExpense = asyncHandler(
 
 export const deleteExpense = asyncHandler(
   async (req: Request, res: Response) => {
-    const customReq = req as CustomRequest;
     const expense = await Expense.findById(req.params.id);
     if (!expense) {
       res.status(400);
       throw new Error("Expense not found");
     }
-    const user = await User.findById(customReq.user.id);
+    const user = await User.findById((req as AuthenticatedRequest).user.id);
     if (!user) {
       res.status(401);
       throw new Error("User not found");

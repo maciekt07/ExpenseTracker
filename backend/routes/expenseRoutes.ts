@@ -6,6 +6,7 @@ import {
   updateExpense,
 } from "../controllers/expenseController";
 import protect from "../middleware/authMiddleware";
+
 const router = Router();
 
 router.post("/", protect, createExpense);

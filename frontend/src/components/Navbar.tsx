@@ -32,8 +32,11 @@ function Navbar() {
       }}
     >
       <Link to="/">Home</Link>
+      {user && <div>Welcome {user.name}</div>}
       {user ? (
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={handleLogout} style={{ color: "red" }}>
+          Logout
+        </button>
       ) : (
         <>
           <Link to="/login">Login</Link>

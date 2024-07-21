@@ -1,15 +1,19 @@
 import { createSlice, createAsyncThunk, AsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
+import { UserData } from "../../types/types";
 
-// Define the type for AsyncThunkConfig if you haven't already
-interface AsyncThunkConfig {
-  // define any necessary properties here
-}
+interface AsyncThunkConfig {}
 
 const user = JSON.parse(localStorage.getItem("user") || "null");
 
-const initialState = {
-  user: user || null,
+const initialState: {
+  user: UserData | null;
+  isError: boolean;
+  isSuccess: boolean;
+  isLoading: boolean;
+  message: string;
+} = {
+  user: (user as UserData) || null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -17,12 +21,12 @@ const initialState = {
 };
 
 // Register user
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const register: AsyncThunk<any, any, AsyncThunkConfig> =
+
+export const register: AsyncThunk<UserData, UserData, AsyncThunkConfig> =
   createAsyncThunk(
     "auth/register",
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    async (user: any, thunkAPI: any) => {
+
+    async (user: UserData, thunkAPI) => {
       try {
         console.log("Dispatching register action with user:", user);
         return await authService.register(user);
@@ -40,8 +44,7 @@ export const register: AsyncThunk<any, any, AsyncThunkConfig> =
     }
   );
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const logout = createAsyncThunk<any, void, AsyncThunkConfig>(
+export const logout = createAsyncThunk<void, void, AsyncThunkConfig>(
   "auth/logout",
   async (_, thunkAPI) => {
     try {
@@ -54,11 +57,8 @@ export const logout = createAsyncThunk<any, void, AsyncThunkConfig>(
   }
 );
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const login: AsyncThunk<any, any, AsyncThunkConfig> = createAsyncThunk(
-  "auth/login",
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async (user: any, thunkAPI: any) => {
+export const login: AsyncThunk<UserData, UserData, AsyncThunkConfig> =
+  createAsyncThunk("auth/login", async (user: UserData, thunkAPI) => {
     try {
       console.log("Dispatching login action with user:", user);
       return await authService.login(user);
@@ -73,8 +73,7 @@ export const login: AsyncThunk<any, any, AsyncThunkConfig> = createAsyncThunk(
         error.toString();
       return thunkAPI.rejectWithValue(message);
     }
-  }
-);
+  });
 
 export const authSlice = createSlice({
   name: "auth",
