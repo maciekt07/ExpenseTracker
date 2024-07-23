@@ -65,7 +65,7 @@ function Register() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 text-white">
+    <div className="flex items-center justify-center min-h-screen p-4 text-white">
       <section className="w-full max-w-sm bg-gray-800 p-8 rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold mb-4">Register</h1>
         <p className="mb-6">Please create an account</p>

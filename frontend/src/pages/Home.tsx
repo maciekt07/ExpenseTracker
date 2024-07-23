@@ -38,7 +38,7 @@ function Home() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-6">
+    <div className="flex flex-col items-center justify-center gap-6 mt-24">
       <h3 className="text-3xl font-bold">Hello {user && user.name}</h3>
       <p>Welcome to your dashboard</p>
       <Link
@@ -49,7 +49,7 @@ function Home() {
       </Link>
       <div>
         {expenses.length > 0 ? (
-          <div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {expenses.map((expense) => (
               <ExpenseItem key={expense._id} expense={expense} />
             ))}

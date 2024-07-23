@@ -10,17 +10,27 @@ function ExpenseItem({ expense }: { expense: Expense }) {
     dispatch(deleteExpense(expense._id));
   };
 
+  const createdAtDate = new Date(expense.createdAt);
+  const isValidDate = !isNaN(createdAtDate.getTime());
+
   return (
-    <div className="border-2 bg-slate-50 text-gray-900 p-4 rounded-lg shadow-md mb-2">
-      <p className="text-lg font-medium">{expense.text}</p>
+    <div className=" bg-gray-700 text-gray-100 p-4 rounded-xl shadow-md mb-2 w-[400px] md:w-[300px] lg:w-[200px]">
+      <p className="text-lg font-semibold">{expense.text}</p>
       <p>${expense.amount}</p>
       <p className="text-sm text-gray-400">
-        {new Date(expense.createdAt).toLocaleString(navigator.language)}
+        {isValidDate
+          ? new Intl.DateTimeFormat(navigator.language, {
+              day: "numeric",
+              month: "short",
+              hour: "2-digit",
+              minute: "2-digit",
+            }).format(createdAtDate)
+          : "Invalid Date"}
       </p>
-      <div className="flex justify-center">
+      <div className="flex justify-start">
         <button
           onClick={handleDelete}
-          className="mt-2 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
+          className="mt-2 bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
         >
           Delete
         </button>

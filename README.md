@@ -1,3 +1,25 @@
+<p align="center">
+<img src="screenshots/logo.png" width="128px" />
+<h1>💸 Expense Tracker</h1>
+<h3>A simple expense tracker application with authentication built the MERN stack.</h3>
+</p>
+
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/maciekt07/ExpenseTracker?color=%230061FF)
+![GitHub License](https://img.shields.io/github/license/maciekt07/ExpenseTracker?color=%230061FF)
+
+## Tech stack
+
+<ul>
+  <li>React</li>
+  <li>Redux</li>
+  <li>TypeScript</li>
+  <li>Vite</li>
+  <li>Tailwind CSS</li>
+  <li>Node.js</li>
+  <li>Express</li>
+  <li>MongoDB</li>
+</ul>
+
 ## To run this project locally
 
 ### 1. Clone the Repository
