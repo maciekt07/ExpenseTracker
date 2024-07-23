@@ -38,10 +38,15 @@ function Home() {
   }
 
   return (
-    <div>
-      <h3>Hello {user && user.name}</h3>
+    <div className="flex flex-col items-center justify-center h-screen gap-6">
+      <h3 className="text-3xl font-bold">Hello {user && user.name}</h3>
       <p>Welcome to your dashboard</p>
-      <Link to="/add">Add New Expense</Link>
+      <Link
+        to="/add"
+        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      >
+        Add New Expense
+      </Link>
       <div>
         {expenses.length > 0 ? (
           <div>

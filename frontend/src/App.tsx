@@ -8,7 +8,6 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import Add from "./pages/Add";
 import { Toaster } from "react-hot-toast";
-import "./App.css";
 
 function App() {
   return (

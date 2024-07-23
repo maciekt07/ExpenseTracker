@@ -17,24 +17,10 @@ function Navbar() {
   };
 
   return (
-    <div
-      style={{
-        position: "absolute",
-        display: "flex",
-        top: "0",
-        left: "0",
-        width: "100%",
-        height: "3rem",
-        backgroundColor: "#242424",
-        color: "#fff",
-        alignItems: "center",
-        gap: "1rem",
-      }}
-    >
+    <div className="absolute top-0 left-0 w-full h-16 bg-slate-500 text-white flex items-center gap-7 px-4 py-2">
       <Link to="/">Home</Link>
-      {user && <div>Welcome {user.name}</div>}
       {user ? (
-        <button onClick={handleLogout} style={{ color: "red" }}>
+        <button className="text-red-400" onClick={handleLogout}>
           Logout
         </button>
       ) : (

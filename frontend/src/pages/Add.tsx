@@ -21,28 +21,52 @@ function Add() {
   };
 
   return (
-    <div>
-      <h2>Add</h2>
-      <form onSubmit={onSubmit}>
-        <div>
-          <label htmlFor="text" />
-          <input
-            type="text"
-            name="text"
-            id="text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          />
-          <input
-            type="number"
-            name="amount"
-            id="amount"
-            value={amount}
-            onChange={(e) => setAmount(Number(e.target.value))}
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="max-w-lg w-full p-6 bg-white rounded-lg shadow-md">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-800 text-center">
+          Add New Expense
+        </h2>
+        <form onSubmit={onSubmit} className="space-y-4">
+          <div>
+            <label
+              htmlFor="text"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              name="text"
+              id="text"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="amount"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Amount
+            </label>
+            <input
+              type="number"
+              name="amount"
+              id="amount"
+              value={amount}
+              onChange={(e) => setAmount(Number(e.target.value))}
+              className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
