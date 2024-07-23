@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Expense } from "../types/types";
-import { AppDispatch } from "../app/strore";
+import { AppDispatch } from "../app/store";
 import { deleteExpense } from "../features/expenses/expenseSlice";
 
 function ExpenseItem({ expense }: { expense: Expense }) {

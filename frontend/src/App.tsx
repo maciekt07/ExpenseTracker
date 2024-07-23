@@ -1,14 +1,14 @@
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
 import Home from "./pages/Home";
 import NotFound from "./pages/404";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MainLayout from "./layouts/MainLayout";
 import { Provider } from "react-redux";
-import { store } from "./app/strore";
+import { store } from "./app/store";
 import Add from "./pages/Add";
 import { Toaster } from "react-hot-toast";
+import "./App.css";
 
 function App() {
   return (

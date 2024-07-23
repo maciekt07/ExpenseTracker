@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../app/strore";
+import { AppDispatch } from "../app/store";
 import { createExpense } from "../features/expenses/expenseSlice";
 import { Expense } from "../types/types";
 import { useNavigate } from "react-router-dom";

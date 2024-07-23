@@ -1,6 +1,6 @@
 import { AsyncThunk, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Expense } from "../../types/types";
-import { RootState } from "../../app/strore";
+import { RootState } from "../../app/store";
 import expenseService from "./expenseService";
 
 interface AsyncThunkConfig {}

@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { AppDispatch, RootState } from "../app/strore";
+import { AppDispatch, RootState } from "../app/store";
 import { useEffect } from "react";
 import { getExpenses, reset } from "../features/expenses/expenseSlice";
 import { Expense } from "../types/types";

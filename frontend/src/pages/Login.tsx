@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { AppDispatch, RootState } from "../app/strore";
+import { AppDispatch, RootState } from "../app/store";
 import { login, reset } from "../features/auth/authSlice";
 import { UserData } from "../types/types";
 import toast from "react-hot-toast";

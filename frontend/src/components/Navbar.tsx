@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, reset } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
-import { AppDispatch, RootState } from "../app/strore";
+import { AppDispatch, RootState } from "../app/store";
 
 function Navbar() {
   const n = useNavigate();
