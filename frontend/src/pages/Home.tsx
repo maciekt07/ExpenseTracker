@@ -1,23 +1,58 @@
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { RootState } from "../app/strore";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { AppDispatch, RootState } from "../app/strore";
 import { useEffect } from "react";
+import { getExpenses, reset } from "../features/expenses/expenseSlice";
+import { Expense } from "../types/types";
+import ExpenseItem from "../components/ExpenseItem";
+import toast from "react-hot-toast";
 
 function Home() {
   const n = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   const { user } = useSelector((state: RootState) => state.auth);
-
+  const { expenses, isLoading, isError, message } = useSelector(
+    (state: RootState) => state.expenses
+  );
   useEffect(() => {
+    if (isError) {
+      if (message !== "Unauthorized") {
+        toast.error(message);
+      }
+    }
+
     if (!user) {
       n("/login");
     }
-  }, [user, n]);
+
+    dispatch(getExpenses({} as Expense));
+
+    return () => {
+      dispatch(reset());
+    };
+  }, [user, n, isError, dispatch, message]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
       <h3>Hello {user && user.name}</h3>
       <p>Welcome to your dashboard</p>
+      <Link to="/add">Add New Expense</Link>
+      <div>
+        {expenses.length > 0 ? (
+          <div>
+            {expenses.map((expense) => (
+              <ExpenseItem key={expense._id} expense={expense} />
+            ))}
+          </div>
+        ) : (
+          <p>No expenses found</p>
+        )}
+      </div>
     </div>
   );
 }

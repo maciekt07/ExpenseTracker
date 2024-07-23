@@ -6,14 +6,8 @@ interface AsyncThunkConfig {}
 
 const user = JSON.parse(localStorage.getItem("user") || "null");
 
-const initialState: {
-  user: UserData | null;
-  isError: boolean;
-  isSuccess: boolean;
-  isLoading: boolean;
-  message: string;
-} = {
-  user: (user as UserData) || null,
+const initialState = {
+  user: (user as UserData | null) || null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -23,26 +17,22 @@ const initialState: {
 // Register user
 
 export const register: AsyncThunk<UserData, UserData, AsyncThunkConfig> =
-  createAsyncThunk(
-    "auth/register",
-
-    async (user: UserData, thunkAPI) => {
-      try {
-        console.log("Dispatching register action with user:", user);
-        return await authService.register(user);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
-        console.error("Error in register thunk:", error);
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        return thunkAPI.rejectWithValue(message);
-      }
+  createAsyncThunk("auth/register", async (user: UserData, thunkAPI) => {
+    try {
+      console.log("Dispatching register action with user:", user);
+      return await authService.register(user);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error("Error in register thunk:", error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
     }
-  );
+  });
 
 export const logout = createAsyncThunk<void, void, AsyncThunkConfig>(
   "auth/logout",
@@ -97,10 +87,6 @@ export const authSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(register.rejected, (state, action) => {
-        console.log(action.payload);
-        console.log(state);
-        console.log(action);
-
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload as string;
@@ -115,10 +101,6 @@ export const authSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(login.rejected, (state, action) => {
-        console.log(action.payload);
-        console.log(state);
-        console.log(action);
-
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload as string;

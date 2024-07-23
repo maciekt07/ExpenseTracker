@@ -5,6 +5,7 @@ import {
   registerUser,
 } from "../controllers/userController";
 import protect from "../middleware/authMiddleware";
+
 const router = Router();
 
 router.post("/", registerUser);

@@ -8,11 +8,13 @@ import MainLayout from "./layouts/MainLayout";
 import { Provider } from "react-redux";
 import { store } from "./app/strore";
 import Add from "./pages/Add";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <Provider store={store}>
       <MainLayout>
+        <Toaster position="bottom-center" />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

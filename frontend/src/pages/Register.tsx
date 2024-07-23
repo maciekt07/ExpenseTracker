@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { register, reset } from "../features/auth/authSlice";
 import { AppDispatch, RootState } from "../app/strore";
+import toast from "react-hot-toast";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -46,7 +47,7 @@ function Register() {
     console.log("Form submitted with data:", formData);
 
     if (password !== password2) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
     } else {
       const userData = {
         name,

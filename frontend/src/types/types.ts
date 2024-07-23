@@ -2,6 +2,7 @@ export interface UserData {
   name: string;
   email: string;
   password: string;
+  token?: string;
 }
 
 export interface AuthResponse {
@@ -11,8 +12,9 @@ export interface AuthResponse {
   token: string;
 }
 
-// export type Expense = {
-//   _id: string;
-//   text: string;
-//   amount: number;
-// };
+export type Expense = {
+  _id: string;
+  text: string;
+  amount: number;
+  createdAt: string;
+};

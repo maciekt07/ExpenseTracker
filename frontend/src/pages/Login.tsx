@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../app/strore";
 import { login, reset } from "../features/auth/authSlice";
+import { UserData } from "../types/types";
+import toast from "react-hot-toast";
 
 interface FormData {
   email: string;
@@ -26,7 +28,7 @@ function Login() {
 
   useEffect(() => {
     if (isError) {
-      alert(message);
+      toast.error(message);
     }
 
     if (isSuccess || user) {
@@ -50,7 +52,8 @@ function Login() {
       email,
       password,
     };
-    dispatch(login(userData));
+    //FIXME: Type error
+    dispatch(login(userData as UserData));
   };
 
   if (isLoading) {
@@ -82,7 +85,7 @@ function Login() {
           value={password}
           onChange={onChange}
         />
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
