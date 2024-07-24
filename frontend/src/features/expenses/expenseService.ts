@@ -22,6 +22,19 @@ const getExpenses = async (token: string) => {
   return response.data;
 };
 
+const getExpenseDetails = async (expenseId: string, token: string) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}${expenseId}`,
+      createConfig(token)
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching expense details:", error);
+    throw error;
+  }
+};
+
 // delete expense
 const deleteExpense = async (expenseId: string, token: string) => {
   const response = await axios.delete(API_URL + expenseId, createConfig(token));
@@ -31,6 +44,7 @@ const deleteExpense = async (expenseId: string, token: string) => {
 const expenseService = {
   createExpense,
   getExpenses,
+  getExpenseDetails,
   deleteExpense,
 };
 export default expenseService;

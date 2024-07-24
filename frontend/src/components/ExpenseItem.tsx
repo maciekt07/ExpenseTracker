@@ -16,7 +16,13 @@ function ExpenseItem({ expense }: { expense: Expense }) {
   return (
     <div className=" bg-gray-700 text-gray-100 p-4 rounded-xl shadow-md mb-2 w-[400px] md:w-[300px] lg:w-[200px]">
       <p className="text-lg font-semibold">{expense.text}</p>
-      <p>${expense.amount}</p>
+      <p
+        className={`${
+          expense.type === "expense" ? "text-red-500" : "text-green-500"
+        }`}
+      >
+        {expense.type === "expense" ? "-" : "+"}${expense.amount}
+      </p>
       <p className="text-sm text-gray-400">
         {isValidDate
           ? new Intl.DateTimeFormat(navigator.language, {

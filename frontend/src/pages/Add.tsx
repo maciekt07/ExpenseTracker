@@ -6,15 +6,16 @@ import { Expense } from "../types/types";
 import { useNavigate } from "react-router-dom";
 
 function Add() {
-  const [text, setText] = useState("");
-  const [amount, setAmount] = useState(0);
+  const [text, setText] = useState<string>("");
+  const [amount, setAmount] = useState<number | undefined>(undefined);
+  const [type, setType] = useState<Expense["type"]>("expense");
 
   const dispatch = useDispatch<AppDispatch>();
   const n = useNavigate();
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await dispatch(createExpense({ text, amount } as Expense));
+    await dispatch(createExpense({ text, amount, type } as Expense));
     setText("");
     setAmount(0);
     n("/");
@@ -39,6 +40,7 @@ function Add() {
               name="text"
               id="text"
               value={text}
+              placeholder="Enter name"
               onChange={(e) => setText(e.target.value)}
               className="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-md"
             />
@@ -56,8 +58,27 @@ function Add() {
               id="amount"
               value={amount}
               onChange={(e) => setAmount(Number(e.target.value))}
+              placeholder="Enter amount"
               className="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-md"
             />
+          </div>
+          <div>
+            <label
+              htmlFor="type"
+              className="block text-sm font-medium text-gray-300 mb-1"
+            >
+              Type
+            </label>
+            <select
+              name="type"
+              id="type"
+              value={type}
+              onChange={(e) => setType(e.target.value as Expense["type"])}
+              className="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-md"
+            >
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+            </select>
           </div>
           <button
             type="submit"

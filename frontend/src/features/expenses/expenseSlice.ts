@@ -7,6 +7,7 @@ interface AsyncThunkConfig {}
 
 const initialState = {
   expenses: [] as Expense[],
+  expense: null as Expense | null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -44,6 +45,8 @@ export const getExpenses: AsyncThunk<Expense, Expense, AsyncThunkConfig> =
     try {
       const state = thunkAPI.getState() as RootState;
       const token = state.auth.user?.token;
+      console.log(await expenseService.getExpenses(token || ""));
+
       return await expenseService.getExpenses(token || "");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -56,6 +59,29 @@ export const getExpenses: AsyncThunk<Expense, Expense, AsyncThunkConfig> =
       return thunkAPI.rejectWithValue(message);
     }
   });
+
+export const getExpenseDetails = createAsyncThunk<
+  Expense,
+  string,
+  { state: RootState }
+>("expense/getDetails", async (id: string, thunkAPI) => {
+  try {
+    const state = thunkAPI.getState();
+    const token = state.auth.user?.token;
+    if (!token) {
+      throw new Error("No authentication token available");
+    }
+    return await expenseService.getExpenseDetails(id, token);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    const message =
+      error.response?.data?.message ||
+      error.message ||
+      "Failed to fetch expense details";
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
 // Delete expense
 export const deleteExpense: AsyncThunk<
   { id: string },
@@ -129,6 +155,20 @@ export const expenseSlice = createSlice({
         );
       })
       .addCase(deleteExpense.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload as string;
+      })
+      .addCase(getExpenseDetails.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getExpenseDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        state.expense = action.payload as Expense;
+      })
+      .addCase(getExpenseDetails.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload as string;

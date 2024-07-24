@@ -29,9 +29,15 @@ export const createExpense = asyncHandler(
       throw new Error("Amount cannot be negative");
     }
 
+    if (req.body.type !== "income" && req.body.type !== "expense") {
+      res.status(400);
+      throw new Error("Invalid type");
+    }
+
     const expense = Expense.create({
       text: req.body.text,
       amount: req.body.amount,
+      type: req.body.type,
       user: (req as AuthenticatedRequest).user.id,
     });
 
@@ -60,6 +66,11 @@ export const updateExpense = asyncHandler(
     if (expense.user.toString() !== user.id) {
       res.status(401);
       throw new Error("Not authorized");
+    }
+
+    if (req.body.type !== "income" && req.body.type !== "expense") {
+      res.status(400);
+      throw new Error("Invalid type");
     }
 
     const updatedExpense = await Expense.findByIdAndUpdate(

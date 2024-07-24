@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register, reset } from "../features/auth/authSlice";
 import { AppDispatch, RootState } from "../app/store";
 import toast from "react-hot-toast";
@@ -113,6 +113,15 @@ function Register() {
             Register
           </button>
         </form>
+        <p className="text-center text-sm mt-4">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="text-blue-500 hover:text-blue-500 transition-colors underline"
+          >
+            Login here
+          </Link>
+        </p>
       </section>
     </div>
   );

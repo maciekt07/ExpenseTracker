@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../app/store";
 import { login, reset } from "../features/auth/authSlice";
 import { UserData } from "../types/types";
@@ -93,6 +93,15 @@ function Login() {
             Login
           </button>
         </form>
+        <p className="text-center text-sm mt-4">
+          Don't have an account?{" "}
+          <Link
+            to="/register"
+            className="text-blue-500 hover:text-blue-500 transition-colors underline"
+          >
+            Register here
+          </Link>
+        </p>
       </section>
     </div>
   );
