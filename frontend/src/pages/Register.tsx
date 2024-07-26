@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { register, reset } from "../features/auth/authSlice";
 import { AppDispatch, RootState } from "../app/store";
 import toast from "react-hot-toast";
+import Loading from "../components/Loading";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -61,18 +62,18 @@ function Register() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 text-white">
-      <section className="w-full max-w-sm bg-gray-800 p-8 rounded-lg shadow-lg">
+    <div className="flex items-center justify-center min-h-screen p-4 ">
+      <section className="w-full max-w-sm bg-base-200 p-8 rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold mb-4">Register</h1>
         <p className="mb-6">Please create an account</p>
         <form onSubmit={onSubmit} className="space-y-4">
           <input
             type="text"
-            className="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-md"
+            className="input input-bordered w-full max-w-xs"
             id="name"
             name="name"
             value={name}
@@ -81,7 +82,7 @@ function Register() {
           />
           <input
             type="email"
-            className="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-md"
+            className="input input-bordered w-full max-w-xs"
             id="email"
             name="email"
             value={email}
@@ -90,7 +91,7 @@ function Register() {
           />
           <input
             type="password"
-            className="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-md"
+            className="input input-bordered w-full max-w-xs"
             id="password"
             name="password"
             value={password}
@@ -99,26 +100,20 @@ function Register() {
           />
           <input
             type="password"
-            className="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-md"
+            className="input input-bordered w-full max-w-xs"
             id="password2"
             name="password2"
             value={password2}
             placeholder="Confirm your password"
             onChange={onChange}
           />
-          <button
-            type="submit"
-            className="w-full font-semibold bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
-          >
+          <button type="submit" className="btn w-full btn-primary">
             Register
           </button>
         </form>
         <p className="text-center text-sm mt-4">
           Already have an account?{" "}
-          <Link
-            to="/login"
-            className="text-blue-500 hover:text-blue-500 transition-colors underline"
-          >
+          <Link to="/login" className="link text-blue-500">
             Login here
           </Link>
         </p>

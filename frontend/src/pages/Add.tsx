@@ -22,17 +22,14 @@ function Add() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 text-white">
-      <div className="w-full max-w-sm bg-gray-800 p-8 rounded-lg shadow-lg">
+    <div className="flex items-center justify-center min-h-screen p-4">
+      <div className="w-full max-w-sm bg-base-200 p-8 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-center">
           Add New Expense
         </h2>
         <form onSubmit={onSubmit} className="space-y-4">
           <div>
-            <label
-              htmlFor="text"
-              className="block text-sm font-medium text-gray-300 mb-1"
-            >
+            <label htmlFor="text" className="block text-sm font-medium mb-1">
               Name
             </label>
             <input
@@ -42,14 +39,11 @@ function Add() {
               value={text}
               placeholder="Enter name"
               onChange={(e) => setText(e.target.value)}
-              className="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-md"
+              className="input input-bordered w-full max-w-xs"
             />
           </div>
           <div>
-            <label
-              htmlFor="amount"
-              className="block text-sm font-medium text-gray-300 mb-1"
-            >
+            <label htmlFor="amount" className="block text-sm font-medium mb-1">
               Amount
             </label>
             <input
@@ -59,14 +53,11 @@ function Add() {
               value={amount}
               onChange={(e) => setAmount(Number(e.target.value))}
               placeholder="Enter amount"
-              className="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-md"
+              className="input input-bordered w-full max-w-xs"
             />
           </div>
           <div>
-            <label
-              htmlFor="type"
-              className="block text-sm font-medium text-gray-300 mb-1"
-            >
+            <label htmlFor="type" className="block text-sm font-medium  mb-1">
               Type
             </label>
             <select
@@ -74,7 +65,7 @@ function Add() {
               id="type"
               value={type}
               onChange={(e) => setType(e.target.value as Expense["type"])}
-              className="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-md"
+              className="select select-bordered w-full max-w-xs"
             >
               <option value="expense">Expense</option>
               <option value="income">Income</option>
@@ -82,7 +73,8 @@ function Add() {
           </div>
           <button
             type="submit"
-            className="w-full font-semibold bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+            className="btn w-full btn-primary"
+            disabled={!text || !amount || !type}
           >
             Add Expense
           </button>

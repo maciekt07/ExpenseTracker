@@ -6,6 +6,7 @@ import { getExpenses, reset } from "../features/expenses/expenseSlice";
 import { Expense } from "../types/types";
 import ExpenseItem from "../components/ExpenseItem";
 import toast from "react-hot-toast";
+import Loading from "../components/Loading";
 
 function Home() {
   const n = useNavigate();
@@ -34,19 +35,18 @@ function Home() {
   }, [user, n, isError, dispatch, message]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
     <div className="flex flex-col items-center justify-center gap-6 mt-24">
       <h3 className="text-3xl font-bold">Hello {user && user.name}</h3>
       <p>Welcome to your dashboard</p>
-      <Link
-        to="/add"
-        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-      >
-        Add New Expense
+
+      <Link to="/add">
+        <button className="btn btn-md">Add New Expense</button>
       </Link>
+
       <div>
         {expenses.length > 0 ? (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

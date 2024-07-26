@@ -14,11 +14,11 @@ function ExpenseItem({ expense }: { expense: Expense }) {
   const isValidDate = !isNaN(createdAtDate.getTime());
 
   return (
-    <div className=" bg-gray-700 text-gray-100 p-4 rounded-xl shadow-md mb-2 w-[400px] md:w-[300px] lg:w-[200px]">
+    <div className="bg-base-300 p-4 rounded-xl shadow-md mb-2 w-[400px] md:w-[300px] lg:w-[200px] flex flex-col">
       <p className="text-lg font-semibold">{expense.text}</p>
       <p
         className={`${
-          expense.type === "expense" ? "text-red-500" : "text-green-500"
+          expense.type === "expense" ? "text-error" : "text-success"
         }`}
       >
         {expense.type === "expense" ? "-" : "+"}${expense.amount}
@@ -33,11 +33,9 @@ function ExpenseItem({ expense }: { expense: Expense }) {
             }).format(createdAtDate)
           : "Invalid Date"}
       </p>
+      <div className="flex-grow"></div>
       <div className="flex justify-start">
-        <button
-          onClick={handleDelete}
-          className="mt-2 bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
-        >
+        <button onClick={handleDelete} className="btn btn-error btn-sm mt-2">
           Delete
         </button>
       </div>

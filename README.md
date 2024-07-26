@@ -15,6 +15,7 @@
   <li>TypeScript</li>
   <li>Vite</li>
   <li>Tailwind CSS</li>
+  <li>DaisyUI</li>
   <li>Node.js</li>
   <li>Express</li>
   <li>MongoDB</li>
