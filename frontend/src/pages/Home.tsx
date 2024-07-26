@@ -44,7 +44,7 @@ function Home() {
       <p>Welcome to your dashboard</p>
 
       <Link to="/add">
-        <button className="btn btn-md">Add New Expense</button>
+        <button className="btn btn-primary btn-md">Add New Expense</button>
       </Link>
 
       <div>

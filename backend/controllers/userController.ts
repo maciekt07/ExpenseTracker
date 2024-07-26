@@ -91,3 +91,40 @@ export const getUserData = asyncHandler(async (req: Request, res: Response) => {
     email,
   });
 });
+
+export const updateUser = asyncHandler(async (req: Request, res: Response) => {
+  const user = await User.findById((req as AuthenticatedRequest).user.id);
+
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  if (req.body.name && typeof req.body.name !== "string") {
+    res.status(400);
+    throw new Error("Invalid name");
+  }
+
+  if (req.body.email && typeof req.body.email !== "string") {
+    res.status(400);
+    throw new Error("Invalid email");
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(
+    (req as AuthenticatedRequest).user.id,
+    req.body,
+    { new: true, runValidators: true }
+  );
+
+  if (!updatedUser) {
+    res.status(400);
+    throw new Error("Failed to update user");
+  }
+
+  res.status(200).json({
+    _id: updatedUser._id,
+    name: updatedUser.name,
+    email: updatedUser.email,
+    token: generateToken(updatedUser._id),
+  });
+});

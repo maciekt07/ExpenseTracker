@@ -65,6 +65,21 @@ export const login: AsyncThunk<UserData, UserData, AsyncThunkConfig> =
     }
   });
 
+export const updateUser = createAsyncThunk<
+  UserData,
+  Partial<UserData>,
+  AsyncThunkConfig
+>("auth/updateUser", async (userData, thunkAPI) => {
+  try {
+    return await authService.updateUser(userData);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    const message =
+      error.response?.data?.message || error.message || error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -108,6 +123,19 @@ export const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload as string;
       });
   },
 });

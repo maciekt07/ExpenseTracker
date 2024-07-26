@@ -56,8 +56,8 @@ function Navbar() {
         )}
         {user && (
           <Link to="/user">
-            <div className="flex items-center gap-2 bg-base-300 py-2 px-3 rounded-lg cursor-pointer transition-colors">
-              <div className="size-8 rounded-full bg-gray-400 flex items-center justify-center">
+            <div className="flex items-center gap-2 bg-base-200 py-2 px-3 rounded-lg cursor-pointer transition-colors">
+              <div className="size-8 rounded-full bg-base-300 flex items-center justify-center">
                 {user?.name[0]}
               </div>
               {user?.name}
