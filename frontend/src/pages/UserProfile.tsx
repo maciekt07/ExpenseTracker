@@ -55,7 +55,7 @@ function UserProfile() {
           <button
             type="submit"
             className="btn btn-primary w-full"
-            disabled={isLoading}
+            disabled={isLoading || name === user?.name}
           >
             {isLoading ? "Updating..." : "Update Your Profile"}
           </button>

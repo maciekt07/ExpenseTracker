@@ -7,6 +7,7 @@ import { Expense } from "../types/types";
 import ExpenseItem from "../components/ExpenseItem";
 import toast from "react-hot-toast";
 import Loading from "../components/Loading";
+import ThemeSwitcher from "../components/ThemeSwitch";
 
 function Home() {
   const n = useNavigate();
@@ -42,7 +43,7 @@ function Home() {
     <div className="flex flex-col items-center justify-center gap-6 mt-24">
       <h3 className="text-3xl font-bold">Hello {user && user.name}</h3>
       <p>Welcome to your dashboard</p>
-
+      <ThemeSwitcher />
       <Link to="/add">
         <button className="btn btn-primary btn-md">Add New Expense</button>
       </Link>

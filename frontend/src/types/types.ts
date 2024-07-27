@@ -19,3 +19,7 @@ export type Expense = {
   type: "income" | "expense";
   createdAt: string;
 };
+export interface Settings {
+  theme: "system" | "light" | "dark";
+  currency: "USD" | "EUR";
+}
