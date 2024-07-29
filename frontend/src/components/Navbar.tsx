@@ -56,7 +56,7 @@ function Navbar() {
                   <div className="avatar size-6 rounded-full">
                     <img
                       className="rounded-full"
-                      src={`/${user.profilePicture}`}
+                      src={`/${user.profilePicture}?${user.token}`}
                       alt="Profile"
                     />
                   </div>

@@ -99,6 +99,35 @@ const uploadProfilePicture = async (formData: FormData) => {
 const logout = () => {
   localStorage.removeItem("user");
 };
+const removeProfilePicture = async () => {
+  try {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    console.log("User from localStorage:", user);
+
+    if (!user.token) {
+      throw new Error("No token found");
+    }
+
+    const response = await axios.post(
+      API_URL + "remove-profile-picture",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+
+    if (response.data) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error("Error removing profile picture:", error);
+    throw error;
+  }
+};
 
 const authService = {
   register,
@@ -106,5 +135,6 @@ const authService = {
   login,
   updateUser,
   uploadProfilePicture,
+  removeProfilePicture,
 };
 export default authService;

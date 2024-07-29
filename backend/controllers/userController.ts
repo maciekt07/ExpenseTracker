@@ -5,7 +5,8 @@ import asyncHandler from "express-async-handler";
 import User from "../models/user";
 import { Types } from "mongoose";
 import { AuthenticatedRequest } from "../types/types";
-import { profile } from "console";
+import fs from "fs/promises";
+import path from "path";
 
 const generateToken = (id: Types.ObjectId) => {
   return jwt.sign({ id }, process.env.JWT_SECRET as string, {
@@ -153,6 +154,7 @@ export const uploadProfilePicture = asyncHandler(
     }
 
     user.profilePicture = req.file.path;
+
     await user.save();
 
     res.status(200).json({
@@ -161,6 +163,46 @@ export const uploadProfilePicture = asyncHandler(
       email: user.email,
       token: generateToken(user._id),
       profilePicture: user.profilePicture,
+    });
+  }
+);
+
+export const removeProfilePicture = asyncHandler(
+  async (req: Request, res: Response) => {
+    if (!(req as AuthenticatedRequest).user) {
+      res.status(401);
+      throw new Error("Not authorized");
+    }
+
+    const user = await User.findById((req as AuthenticatedRequest).user.id);
+    if (!user) {
+      res.status(404);
+      throw new Error("User not found");
+    }
+
+    const uploadDir = "uploads";
+
+    // Delete profile picture file
+    if (user.profilePicture) {
+      const filePath = path.join(uploadDir, path.basename(user.profilePicture));
+      try {
+        await fs.unlink(filePath);
+        console.log(`Deleted profile picture file: ${filePath}`);
+      } catch (err) {
+        console.error("Failed to delete file:", err);
+      }
+    }
+
+    // Clear profile picture reference in the database
+    user.profilePicture = undefined;
+    await user.save();
+
+    res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      token: generateToken(user._id),
+      profilePicture: undefined,
     });
   }
 );

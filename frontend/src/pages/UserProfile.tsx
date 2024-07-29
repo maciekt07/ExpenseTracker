@@ -2,7 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../app/store";
-import { updateUser, uploadProfilePicture } from "../features/auth/authSlice";
+import {
+  removeProfilePicture,
+  updateUser,
+  uploadProfilePicture,
+} from "../features/auth/authSlice";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -35,8 +39,23 @@ function UserProfile() {
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const allowedFileTypes = [
+        "image/png",
+        "image/jpeg",
+        "image/jpg",
+        "image/webp",
+        "image/gif",
+      ];
+      if (!allowedFileTypes.includes(file.type)) {
+        toast.error("Invalid file type.");
+        return;
+      }
       dispatch(uploadProfilePicture(file));
     }
+  };
+
+  const onRemoveProfilePicture = () => {
+    dispatch(removeProfilePicture());
   };
 
   return (
@@ -46,7 +65,10 @@ function UserProfile() {
         {user?.profilePicture ? (
           <div className="avatar flex items-center justify-center mb-6">
             <div className="w-24 rounded-full ring ring-base-200 ring-offset-base-100">
-              <img src={`/${user.profilePicture}`} alt="Profile" />
+              <img
+                src={`/${user.profilePicture}?${user.token}`} // Add token to refresh the image
+                alt="Profile"
+              />
             </div>
           </div>
         ) : (
@@ -63,6 +85,13 @@ function UserProfile() {
           className="file-input w-full mb-4"
           accept="image/*"
         />
+        <button
+          onClick={onRemoveProfilePicture}
+          className="btn btn-outline btn-error w-full mb-2"
+        >
+          Remove Profile Picture
+        </button>
+
         <table className="w-full table-auto mb-4">
           <tbody>
             <tr className="border-b">

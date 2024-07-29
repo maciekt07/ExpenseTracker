@@ -101,6 +101,25 @@ export const uploadProfilePicture = createAsyncThunk<
     return thunkAPI.rejectWithValue(message);
   }
 });
+
+export const removeProfilePicture = createAsyncThunk<
+  void,
+  void,
+  { rejectValue: string } // Provide `rejectValue` type to handle errors
+>("auth/removeProfilePicture", async (_, thunkAPI) => {
+  try {
+    await authService.removeProfilePicture();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    // Handle error
+    const message =
+      (error.response?.data?.message as string) ||
+      error.message ||
+      "Failed to remove profile picture";
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -162,14 +181,26 @@ export const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(uploadProfilePicture.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload;
       })
       .addCase(uploadProfilePicture.rejected, (state, action) => {
-        console.log(action.payload);
-
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload as string;
+      })
+      .addCase(removeProfilePicture.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(removeProfilePicture.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        if (state.user) {
+          state.user = { ...state.user, profilePicture: "" };
+        }
+      })
+      .addCase(removeProfilePicture.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload as string;

@@ -3,6 +3,7 @@ import {
   getUserData,
   loginUser,
   registerUser,
+  removeProfilePicture,
   updateUser,
   uploadProfilePicture,
 } from "../controllers/userController";
@@ -21,5 +22,7 @@ router.post(
   upload.single("profilePicture"),
   uploadProfilePicture
 );
+
+router.post("/remove-profile-picture", protect, removeProfilePicture);
 
 export { router as UserRouter };
