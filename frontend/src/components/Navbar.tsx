@@ -53,8 +53,12 @@ function Navbar() {
             <div className="flex items-center gap-2 bg-base-300 py-2 px-3 rounded-lg cursor-pointer">
               {user.profilePicture ? (
                 <>
-                  <div className="w-8 rounded-full ring ring-base-200 ring-offset-base-100">
-                    <img src={`/${user.profilePicture}`} alt="Profile" />
+                  <div className="avatar size-6 rounded-full">
+                    <img
+                      className="rounded-full"
+                      src={`/${user.profilePicture}`}
+                      alt="Profile"
+                    />
                   </div>
                 </>
               ) : (

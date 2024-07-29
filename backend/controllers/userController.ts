@@ -136,9 +136,6 @@ export const updateUser = asyncHandler(async (req: Request, res: Response) => {
 
 export const uploadProfilePicture = asyncHandler(
   async (req: Request, res: Response) => {
-    console.log("User:", (req as AuthenticatedRequest).user);
-    console.log("File:", req.file);
-
     if (!(req as AuthenticatedRequest).user) {
       res.status(401);
       throw new Error("Not authorized");

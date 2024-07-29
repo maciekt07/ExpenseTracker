@@ -61,6 +61,7 @@ function UserProfile() {
           type="file"
           onChange={onFileChange}
           className="file-input w-full mb-4"
+          accept="image/*"
         />
         <table className="w-full table-auto mb-4">
           <tbody>
