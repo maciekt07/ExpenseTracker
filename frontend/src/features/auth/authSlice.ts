@@ -80,6 +80,27 @@ export const updateUser = createAsyncThunk<
   }
 });
 
+export const uploadProfilePicture = createAsyncThunk<
+  UserData,
+  File,
+  Record<string, never>
+>("auth/uploadProfilePicture", async (file: File, thunkAPI) => {
+  try {
+    // Create FormData and append the file
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+    // Call the authService to upload the file
+    return await authService.uploadProfilePicture(formData);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    // Handle error
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -133,6 +154,22 @@ export const authSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload as string;
+      })
+      .addCase(uploadProfilePicture.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(uploadProfilePicture.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(uploadProfilePicture.rejected, (state, action) => {
+        console.log(action.payload);
+
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload as string;

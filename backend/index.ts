@@ -5,6 +5,7 @@ import connectDB from "./config/db";
 import { errorHandler } from "./middleware/errorMiddleware";
 import "dotenv/config";
 import { UserRouter } from "./routes/userRoutes";
+import path from "path";
 
 const app = express();
 
@@ -20,6 +21,8 @@ app.use("/api/expenses", ExpenseRouter);
 app.use("/api/users", UserRouter);
 
 app.use(errorHandler);
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/", (req, res) => {
   res.send("hello world");

@@ -21,10 +21,12 @@ const ThemeSwitcher: React.FC = () => {
         {themes.map((theme) => (
           <li key={theme}>
             <button
-              className={`btn ${settings.theme === theme ? "btn-active" : ""}`}
+              className={`btn  shadow-none ${
+                settings.theme === theme ? "btn-secondary" : ""
+              }`}
               onClick={() => handleThemeChange(theme)}
             >
-              {theme.charAt(0).toUpperCase() + theme.slice(1)} Theme
+              {theme.charAt(0).toUpperCase() + theme.slice(1)}
             </button>
           </li>
         ))}

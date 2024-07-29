@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import type { Expense } from "../types/types";
 
-const expenseSchema = new mongoose.Schema(
+const expenseSchema = new mongoose.Schema<Expense>(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,

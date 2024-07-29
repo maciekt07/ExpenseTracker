@@ -25,6 +25,7 @@ export const settingsSlice = createSlice({
     updateSettings: (state, action: PayloadAction<Settings>) => {
       state.settings = action.payload;
       localStorage.setItem("settings", JSON.stringify(action.payload));
+      document.documentElement.setAttribute("data-theme", action.payload.theme);
     },
   },
 });

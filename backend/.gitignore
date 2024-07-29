@@ -4,3 +4,6 @@ node_modules
 *.env
 *.env.local
 *.env.staging
+
+uploads/*
+!uploads/.gitkeep

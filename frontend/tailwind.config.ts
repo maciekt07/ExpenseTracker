@@ -1,5 +1,6 @@
 import daisyui from "daisyui";
-/** @type {import('tailwindcss').Config} */
+import type { Config } from "tailwindcss";
+
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   plugins: [daisyui],
@@ -9,7 +10,7 @@ export default {
         lightTheme: {
           primary: "#0061FF",
           "primary-content": "#ffffff",
-          secondary: "#ff52d9",
+          secondary: "#498EFF",
           "secondary-content": "#ffffff",
           accent: "#00cdb7",
           "accent-content": "#ffffff",
@@ -33,7 +34,7 @@ export default {
         darkTheme: {
           primary: "#0061FF",
           "primary-content": "#ffffff",
-          secondary: "#ff52d9",
+          secondary: "#498EFF",
           "secondary-content": "#ffffff",
           accent: "#00cdb7",
           "accent-content": "#ffffff",
@@ -61,4 +62,4 @@ export default {
     prefix: "",
     themeRoot: ":root",
   },
-};
+} satisfies Config;

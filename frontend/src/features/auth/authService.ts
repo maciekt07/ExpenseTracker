@@ -37,13 +37,6 @@ const login = async (userData: Pick<UserData, "email" | "password">) => {
   }
 };
 
-// Reusable config function
-const createConfig = (token: string) => ({
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-});
-
 // Update user information
 const updateUser = async (userData: Partial<UserData>) => {
   try {
@@ -54,11 +47,12 @@ const updateUser = async (userData: Partial<UserData>) => {
       throw new Error("No token found");
     }
 
-    // Create configuration with the token
-    const config = createConfig(user.token);
-
     // Make the API call to update user
-    const response = await axios.put(API_URL + "update", userData, config);
+    const response = await axios.put(API_URL + "update", userData, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
     // Update local storage with the new user data
     if (response.data) {
@@ -72,6 +66,36 @@ const updateUser = async (userData: Partial<UserData>) => {
   }
 };
 
+// Upload profile picture
+const uploadProfilePicture = async (formData: FormData) => {
+  try {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+    if (!user.token) {
+      throw new Error("No token found");
+    }
+
+    const response = await axios.post(
+      API_URL + "upload-profile-picture",
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+    // Update local storage with the new user data
+    if (response.data) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error("Error uploading profile picture:", error);
+    throw error;
+  }
+};
+
 const logout = () => {
   localStorage.removeItem("user");
 };
@@ -81,5 +105,6 @@ const authService = {
   logout,
   login,
   updateUser,
+  uploadProfilePicture,
 };
 export default authService;

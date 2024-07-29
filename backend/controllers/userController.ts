@@ -5,6 +5,7 @@ import asyncHandler from "express-async-handler";
 import User from "../models/user";
 import { Types } from "mongoose";
 import { AuthenticatedRequest } from "../types/types";
+import { profile } from "console";
 
 const generateToken = (id: Types.ObjectId) => {
   return jwt.sign({ id }, process.env.JWT_SECRET as string, {
@@ -43,6 +44,7 @@ export const registerUser = asyncHandler(
       res.status(201).json({
         _id: user._id,
         name: user.name,
+        profilePicture: user.profilePicture,
         email: user.email,
         token: generateToken(user._id),
       });
@@ -62,6 +64,7 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
     res.json({
       _id: user._id,
       name: user.name,
+      profilePicture: user.profilePicture,
       email: user.email,
       token: generateToken(user._id),
     });
@@ -84,11 +87,12 @@ export const getUserData = asyncHandler(async (req: Request, res: Response) => {
     throw new Error("User not found");
   }
 
-  const { _id, name, email } = user;
+  const { _id, name, email, profilePicture } = user;
   res.status(200).json({
     id: _id,
     name,
     email,
+    profilePicture,
   });
 });
 
@@ -126,5 +130,40 @@ export const updateUser = asyncHandler(async (req: Request, res: Response) => {
     name: updatedUser.name,
     email: updatedUser.email,
     token: generateToken(updatedUser._id),
+    profilePicture: updatedUser.profilePicture,
   });
 });
+
+export const uploadProfilePicture = asyncHandler(
+  async (req: Request, res: Response) => {
+    console.log("User:", (req as AuthenticatedRequest).user);
+    console.log("File:", req.file);
+
+    if (!(req as AuthenticatedRequest).user) {
+      res.status(401);
+      throw new Error("Not authorized");
+    }
+
+    const user = await User.findById((req as AuthenticatedRequest).user.id);
+    if (!user) {
+      res.status(404);
+      throw new Error("User not found");
+    }
+
+    if (!req.file) {
+      res.status(400);
+      throw new Error("No file uploaded");
+    }
+
+    user.profilePicture = req.file.path;
+    await user.save();
+
+    res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      token: generateToken(user._id),
+      profilePicture: user.profilePicture,
+    });
+  }
+);

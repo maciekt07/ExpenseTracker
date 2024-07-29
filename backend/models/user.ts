@@ -1,11 +1,15 @@
 import mongoose from "mongoose";
-
-const userSchema = new mongoose.Schema(
+import type { User } from "../types/types";
+const userSchema = new mongoose.Schema<User>(
   {
     name: {
       type: String,
       required: [true, "Username is required"],
       default: "User",
+    },
+    profilePicture: {
+      type: String,
+      default: undefined,
     },
     email: {
       type: String,
