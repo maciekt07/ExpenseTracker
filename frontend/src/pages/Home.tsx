@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { getExpenses, reset } from "../features/expenses/expenseSlice";
 import { Expense } from "../types/types";
 import ExpenseItem from "../components/ExpenseItem";
-import toast from "react-hot-toast";
+
 import Loading from "../components/Loading";
 import ThemeSwitcher from "../components/ThemeSwitch";
 
@@ -18,12 +18,6 @@ function Home() {
     (state: RootState) => state.expenses
   );
   useEffect(() => {
-    if (isError) {
-      if (message !== "Unauthorized") {
-        toast.error(message);
-      }
-    }
-
     if (!user) {
       n("/login");
     }
@@ -39,6 +33,12 @@ function Home() {
     return <Loading />;
   }
 
+  const sortedExpenses = [...expenses].sort((a, b) => {
+    const dateA = new Date(a.customDate || a.createdAt);
+    const dateB = new Date(b.customDate || b.createdAt);
+    return dateA.getTime() - dateB.getTime();
+  });
+
   return (
     <div className="flex flex-col items-center justify-center gap-6 mt-24">
       <h3 className="text-3xl font-bold">Hello {user && user.name}</h3>
@@ -49,9 +49,9 @@ function Home() {
       </Link>
 
       <div>
-        {expenses.length > 0 ? (
+        {sortedExpenses.length > 0 ? (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {expenses.map((expense) => (
+            {sortedExpenses.map((expense) => (
               <ExpenseItem key={expense._id} expense={expense} />
             ))}
           </div>

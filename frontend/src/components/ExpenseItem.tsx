@@ -10,8 +10,11 @@ function ExpenseItem({ expense }: { expense: Expense }) {
     dispatch(deleteExpense(expense._id));
   };
 
-  const createdAtDate = new Date(expense.createdAt);
-  const isValidDate = !isNaN(createdAtDate.getTime());
+  // Determine which date to use
+  const dateToUse = expense.customDate
+    ? new Date(expense.customDate)
+    : new Date(expense.createdAt);
+  const isValidDate = !isNaN(dateToUse.getTime());
 
   return (
     <div className="bg-base-300 p-4 rounded-xl shadow-md mb-2 w-[400px] md:w-[300px] lg:w-[200px] flex flex-col">
@@ -28,12 +31,10 @@ function ExpenseItem({ expense }: { expense: Expense }) {
           ? new Intl.DateTimeFormat(navigator.language, {
               day: "numeric",
               month: "short",
-              hour: "2-digit",
-              minute: "2-digit",
-            }).format(createdAtDate)
+            }).format(dateToUse)
           : "Invalid Date"}
       </p>
-      <div className="flex-grow"></div>
+
       <div className="flex justify-start">
         <button onClick={handleDelete} className="btn btn-error btn-sm mt-2">
           Delete

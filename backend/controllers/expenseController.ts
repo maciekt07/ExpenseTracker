@@ -39,6 +39,7 @@ export const createExpense = asyncHandler(
       amount: req.body.amount,
       type: req.body.type,
       user: (req as AuthenticatedRequest).user.id,
+      customDate: req.body.customDate,
     });
 
     res.status(200).json(expense);

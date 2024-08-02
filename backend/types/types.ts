@@ -10,6 +10,7 @@ export interface User {
 export interface Expense {
   user: User;
   text: string;
+  customDate?: string;
   type: "income" | "expense";
   amount: number;
 }

@@ -12,6 +12,9 @@ const expenseSchema = new mongoose.Schema<Expense>(
       type: String,
       required: [true, "Expense text is required"],
     },
+    customDate: {
+      type: String,
+    },
     type: {
       type: String,
       required: [true, "Expense type is required"],

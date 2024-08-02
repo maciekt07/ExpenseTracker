@@ -18,6 +18,7 @@ export type Expense = {
   _id: string;
   text: string;
   amount: number;
+  customDate?: string;
   type: "income" | "expense";
   createdAt: string;
 };

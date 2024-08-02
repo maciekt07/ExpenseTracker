@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../app/store";
 import {
   removeProfilePicture,
+  reset,
   updateUser,
   uploadProfilePicture,
 } from "../features/auth/authSlice";
@@ -26,6 +27,7 @@ function UserProfile() {
   useEffect(() => {
     if (isSuccess) {
       toast.success("User updated successfully!");
+      dispatch(reset());
     }
     if (isError) {
       toast.error(`Error: ${message}`);
@@ -34,7 +36,7 @@ function UserProfile() {
     if (!user) {
       n("/login");
     }
-  }, [isSuccess, isError, message, user, n]);
+  }, [isSuccess, isError, message, user, n, dispatch]);
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -78,7 +80,9 @@ function UserProfile() {
             </div>
           </div>
         )}
-
+        <label className="block text-sm font-medium mb-1">
+          Upload profile picture
+        </label>
         <input
           type="file"
           onChange={onFileChange}

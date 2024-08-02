@@ -4,21 +4,29 @@ import { AppDispatch } from "../app/store";
 import { createExpense } from "../features/expenses/expenseSlice";
 import { Expense } from "../types/types";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Add() {
   const [text, setText] = useState<string>("");
   const [amount, setAmount] = useState<number | undefined>(undefined);
   const [type, setType] = useState<Expense["type"]>("expense");
 
+  const [date, setDate] = useState<string>("");
+
   const dispatch = useDispatch<AppDispatch>();
   const n = useNavigate();
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await dispatch(createExpense({ text, amount, type } as Expense));
+    const isoDate = new Date(date).toISOString();
+    await dispatch(
+      createExpense({ text, amount, type, customDate: isoDate } as Expense)
+    );
+    toast.success(`Added ${type}: ` + text);
     setText("");
     setAmount(0);
     n("/");
+    setDate("");
   };
 
   return (
@@ -40,6 +48,7 @@ function Add() {
               placeholder="Enter name"
               onChange={(e) => setText(e.target.value)}
               className="input input-bordered w-full max-w-xs"
+              required
             />
           </div>
           <div>
@@ -54,6 +63,20 @@ function Add() {
               onChange={(e) => setAmount(Number(e.target.value))}
               placeholder="Enter amount"
               className="input input-bordered w-full max-w-xs"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="type" className="block text-sm font-medium  mb-1">
+              Custom Date
+            </label>
+            <input
+              id="default-datepicker"
+              type="date"
+              placeholder="Select date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="input input-bordered w-full max-w-xs"
             />
           </div>
           <div>
@@ -66,6 +89,7 @@ function Add() {
               value={type}
               onChange={(e) => setType(e.target.value as Expense["type"])}
               className="select select-bordered w-full max-w-xs"
+              required
             >
               <option value="expense">Expense</option>
               <option value="income">Income</option>
