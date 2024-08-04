@@ -46,8 +46,8 @@ function App() {
             border: `2px solid #0061FF`,
             background: "#141431e0",
             color: "white",
-            WebkitBackdropFilter: "14px",
-            backdropFilter: "14px",
+            WebkitBackdropFilter: "blur(14px)",
+            backdropFilter: "blur(14px)",
           },
           success: {
             iconTheme: {

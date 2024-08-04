@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../app/store";
 import { login, reset } from "../features/auth/authSlice";
-import { UserData } from "../types/types";
+
 import toast from "react-hot-toast";
 import Loading from "../components/Loading";
+import { UserData } from "../../../shared/types/types";
 
 interface FormData {
   email: string;

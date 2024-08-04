@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux";
-import { Expense } from "../types/types";
 import { AppDispatch } from "../app/store";
 import { deleteExpense } from "../features/expenses/expenseSlice";
+import { ExpenseDocument } from "../../../shared/types/types";
 
-function ExpenseItem({ expense }: { expense: Expense }) {
+function ExpenseItem({ expense }: { expense: ExpenseDocument }) {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleDelete = () => {

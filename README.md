@@ -34,29 +34,37 @@ cd ExpenseTracker
 
 ### 2. Configure Environment Variables
 
-Create a .env file in the backend directory and fill it with your MongoDB token and JSON Web Token (JWT) key.
+Create a .env file and fill it with your MongoDB token and JSON Web Token (JWT) key. You can use .env.example as a reference for the required format.
 
 ```env
 MONGODB_URI=your_mongodb_token
 JWT_SECRET=your_jwt_secret
 ```
 
-### 3. Install Backend Dependencies and run the Server
+### 3. Install Backend Dependencies
 
 ```bash
-cd backend
 npm install
+```
+
+### 4. Install Frontend Dependencies
+
+```bash
+cd frontend
+npm install
+```
+
+### 5. Run the Server and Client
+
+```bash
+cd ..
 npm run dev
 ```
 
 The server will start running on port 8000.
 
-### 4. Install Frontend Dependencies and run the Client
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
 The client will start running on port 5173.
+
+## Credits
+
+Made with ❤️ by [maciekt07](https://github.com/maciekt07). Inspired by [Traversy Media Course](https://youtu.be/-0exw-9YJBo?si=Sb0nOUDenxp5Ez3X)

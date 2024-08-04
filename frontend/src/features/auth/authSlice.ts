@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, AsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
-import { UserData } from "../../types/types";
+import { UserData } from "../../../../shared/types/types";
 
 interface AsyncThunkConfig {}
 

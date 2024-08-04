@@ -1,7 +1,8 @@
 import { AsyncThunk, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Expense } from "../../types/types";
+
 import { RootState } from "../../app/store";
 import expenseService from "./expenseService";
+import { Expense, ExpenseDocument } from "../../../../shared/types/types";
 
 interface AsyncThunkConfig {}
 
@@ -151,7 +152,7 @@ export const expenseSlice = createSlice({
         state.isSuccess = true;
 
         state.expenses = state.expenses.filter(
-          (expense) => expense._id !== action.payload.id
+          (expense) => (expense as ExpenseDocument)._id !== action.payload.id
         );
       })
       .addCase(deleteExpense.rejected, (state, action) => {

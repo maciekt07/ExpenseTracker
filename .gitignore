@@ -6,4 +6,3 @@ node_modules
 *.env.staging
 
 uploads/*
-!uploads/.gitkeep

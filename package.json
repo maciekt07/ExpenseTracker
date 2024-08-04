@@ -1,12 +1,14 @@
 {
-  "name": "backend",
+  "name": "expense-tracker",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./dist/index.js",
-    "dev": "nodemon index.ts",
+    "start": "node /backend/dist/server.js",
+    "client": "npm run dev --prefix frontend",
+    "server": "nodemon backend/server.ts",
+    "dev": "concurrently --names \"SERVER,CLIENT\" --prefix \"[{name}]\" --prefix-colors \"yellow,blue\" \"npm run server\" \"npm run client\"",
     "build": "tsc --build"
   },
   "keywords": [],
@@ -21,6 +23,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/multer": "^1.4.11",
     "@types/node": "^20.14.11",
+    "concurrently": "^8.2.2",
     "nodemon": "^3.1.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3"

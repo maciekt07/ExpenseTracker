@@ -4,6 +4,7 @@
     "target": "ES2016",
     "outDir": "./dist",
     "esModuleInterop": true,
+    "composite": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true

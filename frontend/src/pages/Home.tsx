@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../app/store";
 import { useEffect } from "react";
 import { getExpenses, reset } from "../features/expenses/expenseSlice";
-import { Expense } from "../types/types";
+
 import ExpenseItem from "../components/ExpenseItem";
 
 import Loading from "../components/Loading";
 import ThemeSwitcher from "../components/ThemeSwitch";
+
+import { ExpenseDocument } from "../../../shared/types/types";
 
 function Home() {
   const n = useNavigate();
@@ -22,7 +24,7 @@ function Home() {
       n("/login");
     }
 
-    dispatch(getExpenses({} as Expense));
+    dispatch(getExpenses({} as ExpenseDocument));
 
     return () => {
       dispatch(reset());
@@ -33,7 +35,7 @@ function Home() {
     return <Loading />;
   }
 
-  const sortedExpenses = [...expenses].sort((a, b) => {
+  const sortedExpenses = [...(expenses as ExpenseDocument[])].sort((a, b) => {
     const dateA = new Date(a.customDate || a.createdAt);
     const dateB = new Date(b.customDate || b.createdAt);
     return dateA.getTime() - dateB.getTime();
