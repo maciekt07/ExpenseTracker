@@ -2,14 +2,14 @@
   "name": "expense-tracker",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node /backend/dist/server.js",
     "client": "npm run dev --prefix frontend",
     "server": "nodemon backend/server.ts",
     "dev": "concurrently --names \"SERVER,CLIENT\" --prefix \"[{name}]\" --prefix-colors \"yellow,blue\" \"npm run server\" \"npm run client\"",
-    "build": "tsc --build"
+    "build": "tsc --build backend"
   },
   "keywords": [],
   "author": "",
