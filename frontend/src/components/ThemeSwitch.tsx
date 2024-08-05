@@ -3,8 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../app/store";
 import { updateSettings } from "../features/settings/settingsSlice";
 import { Settings } from "../types/types";
+import { FaMoon, FaSun, FaDesktop } from "react-icons/fa";
 
 const themes: Array<Settings["theme"]> = ["light", "dark", "system"];
+
+const themeIcons = {
+  light: <FaSun />,
+  dark: <FaMoon />,
+  system: <FaDesktop />,
+};
 
 const ThemeSwitcher: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,6 +33,7 @@ const ThemeSwitcher: React.FC = () => {
               }`}
               onClick={() => handleThemeChange(theme)}
             >
+              {themeIcons[theme]}{" "}
               {theme.charAt(0).toUpperCase() + theme.slice(1)}
             </button>
           </li>

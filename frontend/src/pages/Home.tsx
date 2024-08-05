@@ -10,7 +10,7 @@ import Loading from "../components/Loading";
 import ThemeSwitcher from "../components/ThemeSwitch";
 
 import { ExpenseDocument } from "../../../shared/types/types";
-
+import { FaPlus } from "react-icons/fa6";
 function Home() {
   const n = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -43,11 +43,13 @@ function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center gap-6 mt-24">
-      <h3 className="text-3xl font-bold">Hello {user && user.name}</h3>
+      <h3 className="text-3xl font-bold">Hello, {user && user.name} 👋</h3>
       <p>Welcome to your dashboard</p>
       <ThemeSwitcher />
       <Link to="/add">
-        <button className="btn btn-primary btn-md">Add New Expense</button>
+        <button className="btn btn-primary btn-md">
+          <FaPlus /> Add New Expense
+        </button>
       </Link>
 
       <div>

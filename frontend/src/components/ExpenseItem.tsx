@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { deleteExpense } from "../features/expenses/expenseSlice";
 import { ExpenseDocument } from "../../../shared/types/types";
-
+import { FaTrashCan } from "react-icons/fa6";
 function ExpenseItem({ expense }: { expense: ExpenseDocument }) {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -37,7 +37,7 @@ function ExpenseItem({ expense }: { expense: ExpenseDocument }) {
 
       <div className="flex justify-start">
         <button onClick={handleDelete} className="btn btn-error btn-sm mt-2">
-          Delete
+          <FaTrashCan size={16} /> Delete
         </button>
       </div>
     </div>

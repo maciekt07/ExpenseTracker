@@ -4,6 +4,7 @@ import { logout, reset } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../app/store";
 import logo from "../assets/logo512.png";
+import { FaArrowRightFromBracket } from "react-icons/fa6";
 
 function Navbar() {
   const n = useNavigate();
@@ -34,8 +35,11 @@ function Navbar() {
             <Link to="/" className="hover:text-primary">
               Home
             </Link>
-            <button className="text-error" onClick={handleLogout}>
-              Logout
+            <button
+              className="text-error flex items-center gap-2"
+              onClick={handleLogout}
+            >
+              <FaArrowRightFromBracket /> Logout
             </button>
           </>
         ) : (

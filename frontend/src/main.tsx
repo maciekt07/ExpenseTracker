@@ -4,11 +4,13 @@ import "./styles/index.css";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./app/store.ts";
-
+import { IconContext } from "react-icons";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <IconContext.Provider value={{ size: "1.4em" }}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>{" "}
+    </IconContext.Provider>
   </Provider>
 );

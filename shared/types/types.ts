@@ -15,8 +15,8 @@ export interface Expense {
 
 export interface MongoDocument {
   _id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ExpenseDocument extends MongoDocument, Expense {}
