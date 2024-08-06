@@ -10,15 +10,20 @@ import {
 } from "../features/auth/authSlice";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { updateSettings } from "../features/settings/settingsSlice";
+import { Settings } from "../types/types";
 
 function UserProfile() {
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state: RootState) => state.auth
   );
-  const [name, setName] = useState(user?.name || "");
   const dispatch = useDispatch<AppDispatch>();
+  const { settings } = useSelector((state: RootState) => state.settings);
+  const [name, setName] = useState(user?.name || "");
+  const [selectedCurrency, setSelectedCurrency] = useState(
+    settings.currency || "USD"
+  );
   const n = useNavigate();
-
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(updateUser({ name }));
@@ -60,6 +65,21 @@ function UserProfile() {
     dispatch(removeProfilePicture());
   };
 
+  //@ts-expect-error it works :)
+  const currencies: Settings["currency"][] = Intl.supportedValuesOf("currency");
+
+  const displayNames = new Intl.DisplayNames(["en"], { type: "currency" });
+
+  const onCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newCurrency = e.target.value;
+    setSelectedCurrency(newCurrency);
+    dispatch(
+      updateSettings({
+        ...settings,
+        currency: newCurrency,
+      })
+    );
+  };
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="max-w-md w-full bg-base-200 shadow-md rounded-lg p-6">
@@ -108,6 +128,26 @@ function UserProfile() {
             </tr>
           </tbody>
         </table>
+        <div>
+          <h3 className="text-xl font-semibold mb-4">Choose your currency</h3>
+          <div className="mb-4 w-full">
+            <label className="block text-sm font-medium mb-1">Currency</label>
+            <select
+              className="select select-bordered w-full"
+              value={selectedCurrency}
+              onChange={onCurrencyChange}
+            >
+              {currencies.map((currency: Settings["currency"]) => {
+                const displayName = displayNames.of(currency);
+                return (
+                  <option key={currency} value={currency}>
+                    {displayName} ({currency})
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
         <form onSubmit={onSubmit}>
           <h3 className="text-xl font-semibold mb-4">Update Your Profile</h3>
           <div className="mb-4 w-full">

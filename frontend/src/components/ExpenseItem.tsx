@@ -1,10 +1,12 @@
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../app/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../app/store";
 import { deleteExpense } from "../features/expenses/expenseSlice";
 import { ExpenseDocument } from "../../../shared/types/types";
 import { FaTrashCan } from "react-icons/fa6";
+
 function ExpenseItem({ expense }: { expense: ExpenseDocument }) {
   const dispatch = useDispatch<AppDispatch>();
+  const { settings } = useSelector((state: RootState) => state.settings);
 
   const handleDelete = () => {
     dispatch(deleteExpense(expense._id));
@@ -16,6 +18,12 @@ function ExpenseItem({ expense }: { expense: ExpenseDocument }) {
     : new Date(expense.createdAt);
   const isValidDate = !isNaN(dateToUse.getTime());
 
+  // Format the amount based on settings.currency
+  const formatter = new Intl.NumberFormat(navigator.language, {
+    style: "currency",
+    currency: settings.currency || "USD",
+  });
+
   return (
     <div className="bg-base-300 p-4 rounded-xl shadow-md mb-2 w-[400px] md:w-[300px] lg:w-[200px] flex flex-col">
       <p className="text-lg font-semibold">{expense.text}</p>
@@ -24,7 +32,8 @@ function ExpenseItem({ expense }: { expense: ExpenseDocument }) {
           expense.type === "expense" ? "text-error" : "text-success"
         }`}
       >
-        {expense.type === "expense" ? "-" : "+"}${expense.amount}
+        {expense.type === "expense" ? "-" : "+"}
+        {formatter.format(expense.amount)}
       </p>
       <p className="text-sm text-gray-400">
         {isValidDate
