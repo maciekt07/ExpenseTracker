@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../app/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../app/store";
 import { createExpense } from "../features/expenses/expenseSlice";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -14,6 +14,8 @@ function Add() {
 
   const dispatch = useDispatch<AppDispatch>();
   const n = useNavigate();
+
+  const { settings } = useSelector((state: RootState) => state.settings);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +73,7 @@ function Add() {
               id="amount"
               value={amount || ""}
               onChange={(e) => setAmount(Number(e.target.value))}
-              placeholder="Enter amount"
+              placeholder={`Enter amount (${settings.currency})`}
               className="input input-bordered w-full max-w-xs"
               required
             />

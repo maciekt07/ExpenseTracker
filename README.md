@@ -7,19 +7,29 @@
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/maciekt07/ExpenseTracker?color=%230061FF)
 ![GitHub License](https://img.shields.io/github/license/maciekt07/ExpenseTracker?color=%230061FF)
 
+<p align="center">
+<img src="screenshots/preview.png" width="500px" />
+</p>
+
 ## Tech stack
 
-<ul>
-  <li>React</li>
-  <li>Redux</li>
-  <li>TypeScript</li>
-  <li>Vite</li>
-  <li>Tailwind CSS</li>
-  <li>DaisyUI</li>
-  <li>Node.js</li>
-  <li>Express</li>
-  <li>MongoDB</li>
-</ul>
+- React
+- Redux
+- TypeScript
+- Vite
+- Tailwind CSS
+- DaisyUI
+- Node.js
+- Express
+- MongoDB
+
+## Features
+
+- Dark Mode
+- JWT Authentication
+- Profile Picture Upload
+- Expense Tracking
+- Currency Selection with Intl API
 
 ## To run this project locally
 

@@ -1,4 +1,3 @@
-// components/UserProfile.tsx
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../app/store";
@@ -20,10 +19,12 @@ function UserProfile() {
   const dispatch = useDispatch<AppDispatch>();
   const { settings } = useSelector((state: RootState) => state.settings);
   const [name, setName] = useState(user?.name || "");
-  const [selectedCurrency, setSelectedCurrency] = useState(
-    settings.currency || "USD"
-  );
+  const [selectedCurrency, setSelectedCurrency] = useState<
+    Settings["currency"]
+  >(settings.currency || "USD");
+
   const n = useNavigate();
+
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(updateUser({ name }));
@@ -68,7 +69,9 @@ function UserProfile() {
   //@ts-expect-error it works :)
   const currencies: Settings["currency"][] = Intl.supportedValuesOf("currency");
 
-  const displayNames = new Intl.DisplayNames(["en"], { type: "currency" });
+  const displayNames = new Intl.DisplayNames([navigator.language], {
+    type: "currency",
+  });
 
   const onCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newCurrency = e.target.value;
@@ -137,11 +140,12 @@ function UserProfile() {
               value={selectedCurrency}
               onChange={onCurrencyChange}
             >
-              {currencies.map((currency: Settings["currency"]) => {
+              {/* TODO: sort currencies by name not by code */}
+              {currencies.sort().map((currency: Settings["currency"]) => {
                 const displayName = displayNames.of(currency);
                 return (
                   <option key={currency} value={currency}>
-                    {displayName} ({currency})
+                    {currency} {displayName}
                   </option>
                 );
               })}
@@ -159,13 +163,15 @@ function UserProfile() {
               className="input input-bordered w-full"
             />
           </div>
-          <button
-            type="submit"
-            className="btn btn-primary w-full"
-            disabled={isLoading || name === user?.name || name.length < 3}
-          >
-            {isLoading ? "Updating..." : "Update Your Profile"}
-          </button>
+          {name !== user?.name && name.length > 2 && (
+            <button
+              type="submit"
+              className="btn btn-primary w-full"
+              disabled={isLoading || name === user?.name || name.length < 3}
+            >
+              {isLoading ? "Updating..." : "Update Your Profile"}
+            </button>
+          )}
         </form>
       </div>
     </div>
