@@ -14,6 +14,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+[data-theme="lightTheme"] {
+  color-scheme: light;
+}
+
+[data-theme="darkTheme"] {
+  color-scheme: dark;
+}
+
 * ::selection {
   @apply bg-primary;
   @apply text-primary-content;
@@ -26,10 +34,6 @@
   @apply hidden;
 }
 
-[data-theme="lightTheme"] {
-  color-scheme: light;
-}
-
-[data-theme="darkTheme"] {
-  color-scheme: dark;
+.sidebar-btn {
+  @apply block p-2 text-lg hover:bg-base-300 rounded w-full text-left;
 }

@@ -19,7 +19,7 @@ function ExpenseItem({ expense }: { expense: ExpenseDocument }) {
   const isValidDate = !isNaN(dateToUse.getTime());
 
   return (
-    <div className="bg-base-300 p-4 rounded-xl shadow-md mb-2 w-[400px] md:w-[300px] lg:w-[200px] flex flex-col">
+    <div className="bg-base-300 p-4 rounded-xl  mb-2 w-[400px] md:w-[300px] lg:w-[200px] flex flex-col">
       <p className="text-lg font-semibold">{expense.text}</p>
       <p
         className={`${

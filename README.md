@@ -8,7 +8,7 @@
 ![GitHub License](https://img.shields.io/github/license/maciekt07/ExpenseTracker?color=%230061FF)
 
 <p align="center">
-<img src="screenshots/preview.png" width="500px" />
+<img src="screenshots/preview.png" width="650px" />
 </p>
 
 ## Tech stack
