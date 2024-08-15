@@ -13,10 +13,7 @@ interface ErrorBoundaryState {
  * ErrorBoundary component that catches and displays errors.
  */
 
-class ErrorBoundary extends React.Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = {
@@ -48,8 +45,7 @@ class ErrorBoundary extends React.Component<
         <div>
           <h1>Oops! An error occurred.</h1>
           <p>
-            To fix it, try clearing your local files (cookies and cache) and
-            then refresh the page.
+            To fix it, try clearing your local files (cookies and cache) and then refresh the page.
           </p>
           <div>{this.state.error?.message}</div>
           <button onClick={() => location.reload()}>Refresh Page</button>

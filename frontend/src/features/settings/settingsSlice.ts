@@ -3,9 +3,7 @@ import { Settings } from "../../types/types";
 
 const loadSettingsFromLocalStorage = (): Settings => {
   const savedSettings = localStorage.getItem("settings");
-  return savedSettings
-    ? JSON.parse(savedSettings)
-    : { theme: "system", currency: "USD" };
+  return savedSettings ? JSON.parse(savedSettings) : { theme: "system", currency: "USD" };
 };
 
 const defaultSettings: Settings = loadSettingsFromLocalStorage();

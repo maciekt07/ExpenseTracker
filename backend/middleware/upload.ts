@@ -24,7 +24,7 @@ const deleteOldFiles = async (userId: string): Promise<void> => {
     await Promise.all(
       files
         .filter((file) => file.startsWith(userId))
-        .map((file) => fs.unlink(path.join(uploadDir, file)))
+        .map((file) => fs.unlink(path.join(uploadDir, file))),
     );
     console.log(`Deleted old files for user ID: ${userId}`);
   } catch (err) {
@@ -33,18 +33,8 @@ const deleteOldFiles = async (userId: string): Promise<void> => {
 };
 
 // File filter function to allow only image formats
-const imageFileFilter = (
-  req: Request,
-  file: Express.Multer.File,
-  cb: FileFilterCallback
-): void => {
-  const allowedMimeTypes = [
-    "image/jpeg",
-    "image/jpg",
-    "image/png",
-    "image/gif",
-    "image/webp",
-  ];
+const imageFileFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback): void => {
+  const allowedMimeTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif", "image/webp"];
   if (allowedMimeTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {

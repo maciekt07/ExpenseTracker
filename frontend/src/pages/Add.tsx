@@ -31,9 +31,7 @@ function Add() {
       }
     }
 
-    await dispatch(
-      createExpense({ text, amount, type, customDate: isoDate } as Expense)
-    );
+    await dispatch(createExpense({ text, amount, type, customDate: isoDate } as Expense));
     toast.success(`Added ${type}: ` + text);
     setText("");
     setAmount(0);
@@ -44,9 +42,7 @@ function Add() {
   return (
     <div className="flex items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-sm bg-base-200 p-8 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-center">
-          Add New Expense
-        </h2>
+        <h2 className="text-2xl font-semibold mb-4 text-center">Add New Expense</h2>
         <form onSubmit={onSubmit} className="space-y-4">
           <div>
             <label htmlFor="text" className="block text-sm font-medium mb-1">

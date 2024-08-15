@@ -13,19 +13,13 @@ function ExpenseItem({ expense }: { expense: ExpenseDocument }) {
   };
 
   // Determine which date to use
-  const dateToUse = expense.customDate
-    ? new Date(expense.customDate)
-    : new Date(expense.createdAt);
+  const dateToUse = expense.customDate ? new Date(expense.customDate) : new Date(expense.createdAt);
   const isValidDate = !isNaN(dateToUse.getTime());
 
   return (
     <div className="bg-base-300 p-4 rounded-xl  mb-2 w-[400px] md:w-[300px] lg:w-[200px] flex flex-col">
       <p className="text-lg font-semibold">{expense.text}</p>
-      <p
-        className={`${
-          expense.type === "expense" ? "text-base" : "text-success"
-        }`}
-      >
+      <p className={`${expense.type === "expense" ? "text-base" : "text-success"}`}>
         {expense.type === "expense" ? "-" : "+"}
         {formatCurrency(expense.amount)}
       </p>

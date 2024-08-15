@@ -2,18 +2,18 @@
   "name": "expense-tracker",
   "version": "1.0.0",
   "description": "",
-  "main": "server.ts",
+  "main": "backend/server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node /backend/dist/server.js",
+    "dev": "concurrently --names \"SERVER,CLIENT\" --prefix \"[{name}]\" --prefix-colors \"yellow,blue\" \"npm run server\" \"npm run client\"",
+    "format": "prettier --write \"frontend/**/*.{ts,tsx,css,md,json}\" && prettier --write \"backend/**/*.{ts,tsx,json}\"",
     "client": "npm run dev --prefix frontend",
     "server": "nodemon backend/server.ts",
-    "dev": "concurrently --names \"SERVER,CLIENT\" --prefix \"[{name}]\" --prefix-colors \"yellow,blue\" \"npm run server\" \"npm run client\"",
-    "build": "tsc --build backend"
+    "build": "tsc --build backend",
+    "start": "node /backend/dist/server.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "github.com/maciekt07",
+  "license": "MIT",
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/bcryptjs": "^2.4.6",
@@ -25,6 +25,7 @@
     "@types/node": "^20.14.11",
     "concurrently": "^8.2.2",
     "nodemon": "^3.1.4",
+    "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3"
   },

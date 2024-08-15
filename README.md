@@ -26,10 +26,9 @@
 ## Features
 
 - Dark Mode
-- JWT Authentication
+- Currency Selection with Intl API [https://codepen.io/maciekt07/pen/zYVdPLy](https://codepen.io/maciekt07/pen/zYVdPLy)
 - Profile Picture Upload
-- Expense Tracking
-- Currency Selection with Intl API
+- JWT Authentication
 
 ## To run this project locally
 

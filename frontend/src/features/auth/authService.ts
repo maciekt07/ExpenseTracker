@@ -75,15 +75,11 @@ const uploadProfilePicture = async (formData: FormData) => {
       throw new Error("No token found");
     }
 
-    const response = await axios.post(
-      API_URL + "upload-profile-picture",
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const response = await axios.post(API_URL + "upload-profile-picture", formData, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
     // Update local storage with the new user data
     if (response.data) {
       localStorage.setItem("user", JSON.stringify(response.data));
@@ -115,7 +111,7 @@ const removeProfilePicture = async () => {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
-      }
+      },
     );
 
     if (response.data) {

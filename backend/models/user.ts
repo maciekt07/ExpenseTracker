@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema<User>(
       minlength: [4, "Password must be at least 4 characters"],
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 const User = mongoose.model("User", userSchema);
 export default User;

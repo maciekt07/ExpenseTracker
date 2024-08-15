@@ -24,10 +24,7 @@ const getExpenses = async (token: string) => {
 
 const getExpenseDetails = async (expenseId: string, token: string) => {
   try {
-    const response = await axios.get(
-      `${API_URL}${expenseId}`,
-      createConfig(token)
-    );
+    const response = await axios.get(`${API_URL}${expenseId}`, createConfig(token));
     return response.data;
   } catch (error) {
     console.error("Error fetching expense details:", error);

@@ -1,9 +1,38 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    VitePWA({
+      devOptions: {
+        enabled: true,
+        type: "module",
+      },
+      registerType: "autoUpdate",
+      includeAssets: ["**/*"],
+      manifest: {
+        name: "Expense Tracker",
+        short_name: "Expense Tracker",
+        theme_color: "#0061FF",
+        //TODO: Add icons
+        icons: [
+          {
+            src: "/logo.svg",
+            sizes: "512x512",
+            type: "image/svg+xml",
+          },
+          {
+            src: "/logo.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+      },
+    }),
+  ],
   server: {
     proxy: {
       "/api": "http://localhost:8000",

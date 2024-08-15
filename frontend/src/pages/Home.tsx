@@ -17,7 +17,7 @@ function Home() {
 
   const { user } = useSelector((state: RootState) => state.auth);
   const { expenses, isLoading, isError, message } = useSelector(
-    (state: RootState) => state.expenses
+    (state: RootState) => state.expenses,
   );
 
   useEffect(() => {
@@ -64,9 +64,7 @@ function Home() {
       >
         <div>
           <p>My Balance</p>
-          <p className="text-2xl font-semibold">
-            {formatCurrency(actualBalance)}
-          </p>
+          <p className="text-2xl font-semibold">{formatCurrency(actualBalance)}</p>
         </div>
         <div>
           <FaWallet className="text-3xl" />

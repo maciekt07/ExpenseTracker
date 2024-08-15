@@ -14,14 +14,14 @@ import { Settings } from "../types/types";
 
 function UserProfile() {
   const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state: RootState) => state.auth
+    (state: RootState) => state.auth,
   );
   const dispatch = useDispatch<AppDispatch>();
   const { settings } = useSelector((state: RootState) => state.settings);
   const [name, setName] = useState(user?.name || "");
-  const [selectedCurrency, setSelectedCurrency] = useState<
-    Settings["currency"]
-  >(settings.currency || "USD");
+  const [selectedCurrency, setSelectedCurrency] = useState<Settings["currency"]>(
+    settings.currency || "USD",
+  );
 
   const n = useNavigate();
 
@@ -47,13 +47,7 @@ function UserProfile() {
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const allowedFileTypes = [
-        "image/png",
-        "image/jpeg",
-        "image/jpg",
-        "image/webp",
-        "image/gif",
-      ];
+      const allowedFileTypes = ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/gif"];
       if (!allowedFileTypes.includes(file.type)) {
         toast.error("Invalid file type.");
         return;
@@ -80,7 +74,7 @@ function UserProfile() {
       updateSettings({
         ...settings,
         currency: newCurrency,
-      })
+      }),
     );
   };
   return (
@@ -103,19 +97,14 @@ function UserProfile() {
             </div>
           </div>
         )}
-        <label className="block text-sm font-medium mb-1">
-          Upload profile picture
-        </label>
+        <label className="block text-sm font-medium mb-1">Upload profile picture</label>
         <input
           type="file"
           onChange={onFileChange}
           className="file-input w-full mb-4"
           accept="image/*"
         />
-        <button
-          onClick={onRemoveProfilePicture}
-          className="btn btn-outline btn-error w-full mb-2"
-        >
+        <button onClick={onRemoveProfilePicture} className="btn btn-outline btn-error w-full mb-2">
           Remove Profile Picture
         </button>
 

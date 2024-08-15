@@ -17,32 +17,30 @@ const initialState = {
 
 // create new expense
 
-export const createExpense: AsyncThunk<Expense, Expense, AsyncThunkConfig> =
-  createAsyncThunk(
-    "expsense/create",
-    async (expenseData: Expense, thunkAPI) => {
-      try {
-        const state = thunkAPI.getState() as RootState;
-        const token = state.auth.user?.token;
-        return await expenseService.createExpense(expenseData, token || "");
+export const createExpense: AsyncThunk<Expense, Expense, AsyncThunkConfig> = createAsyncThunk(
+  "expsense/create",
+  async (expenseData: Expense, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState() as RootState;
+      const token = state.auth.user?.token;
+      return await expenseService.createExpense(expenseData, token || "");
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
-        console.error("Error in register thunk:", error);
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        return thunkAPI.rejectWithValue(message);
-      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error("Error in register thunk:", error);
+      const message =
+        (error.response && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
     }
-  );
+  },
+);
 
 // Get user expenses
-export const getExpenses: AsyncThunk<Expense, Expense, AsyncThunkConfig> =
-  createAsyncThunk("expense/getAll", async (_, thunkAPI) => {
+export const getExpenses: AsyncThunk<Expense, Expense, AsyncThunkConfig> = createAsyncThunk(
+  "expense/getAll",
+  async (_, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
       const token = state.auth.user?.token;
@@ -52,58 +50,53 @@ export const getExpenses: AsyncThunk<Expense, Expense, AsyncThunkConfig> =
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
+        (error.response && error.response.data && error.response.data.message) ||
         error.message ||
         error.toString();
       return thunkAPI.rejectWithValue(message);
     }
-  });
+  },
+);
 
-export const getExpenseDetails = createAsyncThunk<
-  Expense,
-  string,
-  { state: RootState }
->("expense/getDetails", async (id: string, thunkAPI) => {
-  try {
-    const state = thunkAPI.getState();
-    const token = state.auth.user?.token;
-    if (!token) {
-      throw new Error("No authentication token available");
+export const getExpenseDetails = createAsyncThunk<Expense, string, { state: RootState }>(
+  "expense/getDetails",
+  async (id: string, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.user?.token;
+      if (!token) {
+        throw new Error("No authentication token available");
+      }
+      return await expenseService.getExpenseDetails(id, token);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      const message =
+        error.response?.data?.message || error.message || "Failed to fetch expense details";
+      return thunkAPI.rejectWithValue(message);
     }
-    return await expenseService.getExpenseDetails(id, token);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    const message =
-      error.response?.data?.message ||
-      error.message ||
-      "Failed to fetch expense details";
-    return thunkAPI.rejectWithValue(message);
-  }
-});
+  },
+);
 
 // Delete expense
-export const deleteExpense: AsyncThunk<
-  { id: string },
-  string,
-  AsyncThunkConfig
-> = createAsyncThunk("expsense/delete", async (id: string, thunkAPI) => {
-  try {
-    const state = thunkAPI.getState() as RootState;
-    const token = state.auth.user?.token;
-    await expenseService.deleteExpense(id, token || "");
-    return { id };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    console.error("Error in register thunk:", error);
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
-    return thunkAPI.rejectWithValue(message);
-  }
-});
+export const deleteExpense: AsyncThunk<{ id: string }, string, AsyncThunkConfig> = createAsyncThunk(
+  "expsense/delete",
+  async (id: string, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState() as RootState;
+      const token = state.auth.user?.token;
+      await expenseService.deleteExpense(id, token || "");
+      return { id };
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error("Error in register thunk:", error);
+      const message =
+        (error.response && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  },
+);
 
 export const expenseSlice = createSlice({
   name: "expense",
@@ -152,7 +145,7 @@ export const expenseSlice = createSlice({
         state.isSuccess = true;
 
         state.expenses = state.expenses.filter(
-          (expense) => (expense as ExpenseDocument)._id !== action.payload.id
+          (expense) => (expense as ExpenseDocument)._id !== action.payload.id,
         );
       })
       .addCase(deleteExpense.rejected, (state, action) => {

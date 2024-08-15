@@ -22,11 +22,7 @@ export default function WeeklyChart({ expenses }: WeeklyChartProps) {
 
   const weeklyExpenses = sortedExpenses.filter((expense) => {
     const expenseDate = new Date(expense.customDate || expense.createdAt);
-    return (
-      expenseDate >= startOfWeek &&
-      expenseDate <= endOfWeek &&
-      expense.type === "expense"
-    );
+    return expenseDate >= startOfWeek && expenseDate <= endOfWeek && expense.type === "expense";
   });
 
   const dailyExpenses = Array.from({ length: 7 }, (_, i) => {
@@ -41,10 +37,7 @@ export default function WeeklyChart({ expenses }: WeeklyChartProps) {
         expenseDate.getFullYear() === date.getFullYear()
       );
     });
-    return dayExpenses.reduce(
-      (total, expense) => total + (expense.amount || 0),
-      0
-    );
+    return dayExpenses.reduce((total, expense) => total + (expense.amount || 0), 0);
   });
 
   const locale = navigator.language;
@@ -58,7 +51,7 @@ export default function WeeklyChart({ expenses }: WeeklyChartProps) {
 
   const monthlyExpenses = weeklyExpenses.reduce(
     (total, expense) => total + (expense.amount || 0),
-    0
+    0,
   );
 
   return (
@@ -78,13 +71,9 @@ export default function WeeklyChart({ expenses }: WeeklyChartProps) {
                   padding: "0.5rem",
                 }}
               >
-                <div className="text-center text-xs mt-1">
-                  {value.toFixed(0)}
-                </div>
+                <div className="text-center text-xs mt-1">{value.toFixed(0)}</div>
                 <div className="bg-secondary h-full w-full rounded-md"></div>
-                <div className="text-center text-xs mt-1">
-                  {daysOfWeek[index]}
-                </div>
+                <div className="text-center text-xs mt-1">{daysOfWeek[index]}</div>
               </div>
             ))
           ) : (
@@ -98,9 +87,7 @@ export default function WeeklyChart({ expenses }: WeeklyChartProps) {
           <hr className="border-base-100 w-full" />
           <div className="flex-col mt-3">
             <p className="text-sm">Total this week</p>
-            <p className="text-3xl font-semibold">
-              {formatCurrency(monthlyExpenses)}
-            </p>
+            <p className="text-3xl font-semibold">{formatCurrency(monthlyExpenses)}</p>
           </div>
         </div>
       </div>

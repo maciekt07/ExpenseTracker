@@ -10,22 +10,27 @@ import Add from "./pages/Add";
 import { Toaster } from "react-hot-toast";
 import UserProfile from "./pages/UserProfile";
 import { useEffect } from "react";
+import { useSystemTheme } from "./hooks/useSystemTheme";
 
 function App() {
-  const theme = useSelector(
-    (state: RootState) => state.settings.settings.theme
-  );
+  const theme = useSelector((state: RootState) => state.settings.settings.theme);
+
+  const systemTheme = useSystemTheme();
 
   useEffect(() => {
     const htmlElement = document.documentElement;
+    const metaThemeColor = document.querySelector("meta[name=theme-color]") as HTMLMetaElement;
     if (theme === "system") {
       htmlElement.removeAttribute("data-theme");
+      metaThemeColor.setAttribute("content", systemTheme === "dark" ? "#1d232a" : "#ffffff");
     } else if (theme === "light") {
       htmlElement.setAttribute("data-theme", "lightTheme");
+      metaThemeColor.setAttribute("content", "#ffffff");
     } else if (theme === "dark") {
       htmlElement.setAttribute("data-theme", "darkTheme");
+      metaThemeColor.setAttribute("content", "#1d232a");
     }
-  }, [theme]);
+  }, [theme, systemTheme]);
 
   return (
     <MainLayout>

@@ -16,8 +16,9 @@ const initialState = {
 
 // Register user
 
-export const register: AsyncThunk<UserData, UserData, AsyncThunkConfig> =
-  createAsyncThunk("auth/register", async (user: UserData, thunkAPI) => {
+export const register: AsyncThunk<UserData, UserData, AsyncThunkConfig> = createAsyncThunk(
+  "auth/register",
+  async (user: UserData, thunkAPI) => {
     try {
       console.log("Dispatching register action with user:", user);
       return await authService.register(user);
@@ -25,14 +26,13 @@ export const register: AsyncThunk<UserData, UserData, AsyncThunkConfig> =
     } catch (error: any) {
       console.error("Error in register thunk:", error);
       const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
+        (error.response && error.response.data && error.response.data.message) ||
         error.message ||
         error.toString();
       return thunkAPI.rejectWithValue(message);
     }
-  });
+  },
+);
 
 export const logout = createAsyncThunk<void, void, AsyncThunkConfig>(
   "auth/logout",
@@ -44,11 +44,12 @@ export const logout = createAsyncThunk<void, void, AsyncThunkConfig>(
       console.error("Error logging out:", error);
       return thunkAPI.rejectWithValue(error.message || error.toString());
     }
-  }
+  },
 );
 
-export const login: AsyncThunk<UserData, UserData, AsyncThunkConfig> =
-  createAsyncThunk("auth/login", async (user: UserData, thunkAPI) => {
+export const login: AsyncThunk<UserData, UserData, AsyncThunkConfig> = createAsyncThunk(
+  "auth/login",
+  async (user: UserData, thunkAPI) => {
     try {
       console.log("Dispatching login action with user:", user);
       return await authService.login(user);
@@ -56,51 +57,47 @@ export const login: AsyncThunk<UserData, UserData, AsyncThunkConfig> =
     } catch (error: any) {
       console.error("Error in login thunk:", error);
       const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
+        (error.response && error.response.data && error.response.data.message) ||
         error.message ||
         error.toString();
       return thunkAPI.rejectWithValue(message);
     }
-  });
+  },
+);
 
-export const updateUser = createAsyncThunk<
-  UserData,
-  Partial<UserData>,
-  AsyncThunkConfig
->("auth/updateUser", async (userData, thunkAPI) => {
-  try {
-    return await authService.updateUser(userData);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    const message =
-      error.response?.data?.message || error.message || error.toString();
-    return thunkAPI.rejectWithValue(message);
-  }
-});
+export const updateUser = createAsyncThunk<UserData, Partial<UserData>, AsyncThunkConfig>(
+  "auth/updateUser",
+  async (userData, thunkAPI) => {
+    try {
+      return await authService.updateUser(userData);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      const message = error.response?.data?.message || error.message || error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  },
+);
 
-export const uploadProfilePicture = createAsyncThunk<
-  UserData,
-  File,
-  Record<string, never>
->("auth/uploadProfilePicture", async (file: File, thunkAPI) => {
-  try {
-    // Create FormData and append the file
-    const formData = new FormData();
-    formData.append("profilePicture", file);
-    // Call the authService to upload the file
-    return await authService.uploadProfilePicture(formData);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    // Handle error
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
-    return thunkAPI.rejectWithValue(message);
-  }
-});
+export const uploadProfilePicture = createAsyncThunk<UserData, File, Record<string, never>>(
+  "auth/uploadProfilePicture",
+  async (file: File, thunkAPI) => {
+    try {
+      // Create FormData and append the file
+      const formData = new FormData();
+      formData.append("profilePicture", file);
+      // Call the authService to upload the file
+      return await authService.uploadProfilePicture(formData);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      // Handle error
+      const message =
+        (error.response && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  },
+);
 
 export const removeProfilePicture = createAsyncThunk<
   void,

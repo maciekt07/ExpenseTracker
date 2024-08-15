@@ -20,7 +20,7 @@ router.post(
   "/upload-profile-picture",
   protect,
   upload.single("profilePicture"),
-  uploadProfilePicture
+  uploadProfilePicture,
 );
 
 router.post("/remove-profile-picture", protect, removeProfilePicture);

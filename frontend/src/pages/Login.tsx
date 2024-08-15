@@ -25,7 +25,7 @@ function Login() {
   const dispatch = useDispatch<AppDispatch>();
 
   const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state: RootState) => state.auth
+    (state: RootState) => state.auth,
   );
 
   useEffect(() => {
