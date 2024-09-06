@@ -6,7 +6,7 @@ import { getExpenses, reset } from "../features/expenses/expenseSlice";
 import ExpenseItem from "../components/ExpenseItem";
 import Loading from "../components/Loading";
 import ThemeSwitcher from "../components/ThemeSwitch";
-import { ExpenseDocument } from "../../../shared/types/types";
+import { ExpenseDocument } from "@shared/types/types";
 import { FaPlus, FaWallet } from "react-icons/fa6";
 import { formatCurrency } from "../utils/currencyFormatter";
 import WeeklyChart from "../components/WeeklyChart";

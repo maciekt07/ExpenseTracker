@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Expense } from "../../../../shared/types/types";
+import { Expense } from "@shared/types/types";
 
 const API_URL = "api/expenses/";
 

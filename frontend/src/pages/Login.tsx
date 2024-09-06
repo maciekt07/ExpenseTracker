@@ -6,7 +6,7 @@ import { login, reset } from "../features/auth/authSlice";
 
 import toast from "react-hot-toast";
 import Loading from "../components/Loading";
-import { UserData } from "../../../shared/types/types";
+import { UserData } from "@shared/types/types";
 
 interface FormData {
   email: string;

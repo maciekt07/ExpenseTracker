@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import type { Expense } from "../types/types";
+import type { Expense } from "@shared/types/types";
 
 const expenseSchema = new mongoose.Schema<Expense>(
   {

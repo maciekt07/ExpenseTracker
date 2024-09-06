@@ -1,4 +1,4 @@
-import { ExpenseDocument } from "../../../shared/types/types";
+import { ExpenseDocument } from "@shared/types/types";
 import { formatCurrency } from "../utils/currencyFormatter";
 
 interface WeeklyChartProps {

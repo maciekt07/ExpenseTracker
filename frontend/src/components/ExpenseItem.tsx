@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { deleteExpense } from "../features/expenses/expenseSlice";
-import { ExpenseDocument } from "../../../shared/types/types";
+import { ExpenseDocument } from "@shared/types/types";
 import { FaTrashCan } from "react-icons/fa6";
 import { formatCurrency } from "../utils/currencyFormatter";
 

@@ -2,7 +2,7 @@ import { AsyncThunk, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { RootState } from "../../app/store";
 import expenseService from "./expenseService";
-import { Expense, ExpenseDocument } from "../../../../shared/types/types";
+import { Expense, ExpenseDocument } from "@shared/types/types";
 
 interface AsyncThunkConfig {}
 
