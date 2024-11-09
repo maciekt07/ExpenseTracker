@@ -38,10 +38,21 @@ const deleteExpense = async (expenseId: string, token: string) => {
   return response.data;
 };
 
+// Add this function
+const updateExpense = async (expenseData: Expense, token: string) => {
+  const response = await axios.put(
+    `${API_URL}${expenseData._id}`,
+    expenseData,
+    createConfig(token),
+  );
+  return response.data;
+};
+
 const expenseService = {
   createExpense,
   getExpenses,
   getExpenseDetails,
   deleteExpense,
+  updateExpense,
 };
 export default expenseService;

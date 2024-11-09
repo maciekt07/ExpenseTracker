@@ -4,7 +4,7 @@ import { AppDispatch, RootState } from "../app/store";
 import { createExpense } from "../features/expenses/expenseSlice";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { Expense } from "@shared/types/types";
+import { Expense } from "../../../shared/types/types";
 
 function Add() {
   const [text, setText] = useState<string>("");
@@ -30,6 +30,8 @@ function Add() {
         return;
       }
     }
+
+    //FIXME: negative amount should be handled
 
     await dispatch(createExpense({ text, amount, type, customDate: isoDate } as Expense));
     toast.success(`Added ${type}: ` + text);

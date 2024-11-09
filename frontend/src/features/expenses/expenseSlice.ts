@@ -98,6 +98,19 @@ export const deleteExpense: AsyncThunk<{ id: string }, string, AsyncThunkConfig>
   },
 );
 
+export const updateExpense = createAsyncThunk(
+  "expense/update",
+  async (expenseData: Expense, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState() as RootState;
+      const token = state.auth.user?.token;
+      return await expenseService.updateExpense(expenseData, token || "");
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Failed to update expense");
+    }
+  },
+);
+
 export const expenseSlice = createSlice({
   name: "expense",
   initialState,
@@ -149,6 +162,19 @@ export const expenseSlice = createSlice({
         );
       })
       .addCase(deleteExpense.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload as string;
+      })
+      .addCase(updateExpense.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        const index = state.expenses.findIndex((expense) => expense._id === action.payload._id);
+        if (index !== -1) {
+          state.expenses[index] = action.payload;
+        }
+      })
+      .addCase(updateExpense.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload as string;

@@ -5,7 +5,6 @@ import { AppDispatch, RootState } from "../app/store";
 import { getExpenses, reset } from "../features/expenses/expenseSlice";
 import ExpenseItem from "../components/ExpenseItem";
 import Loading from "../components/Loading";
-import ThemeSwitcher from "../components/ThemeSwitch";
 import { ExpenseDocument } from "@shared/types/types";
 import { FaPlus, FaWallet } from "react-icons/fa6";
 import { formatCurrency } from "../utils/currencyFormatter";
@@ -82,7 +81,7 @@ function Home() {
             ))}
           </div>
         ) : (
-          <p>No expenses found</p>
+          <p className="text-center">No expenses found</p>
         )}
       </div>
       <Link to="/add">
@@ -95,7 +94,6 @@ function Home() {
           </div>
         </button>
       </Link>
-      <ThemeSwitcher />
     </div>
   );
 }

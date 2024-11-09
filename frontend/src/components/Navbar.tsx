@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "../app/store";
 import logo from "../assets/logo512.png";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
+import ThemeSwitcher from "./ThemeSwitch";
 
 function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -38,7 +39,9 @@ function Navbar() {
               <FaTimes />
             </button>
           </div>
+
           <div className="flex-grow px-2 py-2">
+            <ThemeSwitcher />
             {user ? (
               <>
                 <Link
@@ -125,6 +128,7 @@ function Navbar() {
                 </Link>
               </>
             )}
+            <ThemeSwitcher />
             {user && (
               <Link to="/user" className="flex items-center space-x-2">
                 {user.profilePicture ? (

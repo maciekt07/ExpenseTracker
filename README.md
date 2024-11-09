@@ -1,7 +1,7 @@
 <p align="center">
 <img src="screenshots/logo.png" width="128px" />
 <h1>💸 Expense Tracker</h1>
-<h3>A simple expense tracker application with authentication built the MERN stack.</h3>
+<h3>A simple expense tracker application with authentication built with the MERN stack.</h3>
 </p>
 
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/maciekt07/ExpenseTracker?color=%230061FF)
